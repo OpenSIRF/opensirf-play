@@ -1,0 +1,8 @@
+@* objectExtension Template File *@
+@(param: Any)
+
+<form action="@routes.Application.addExtensionPair()" method="post">
+   		<input type="text" name="objectExtensionKey" />
+   		<input type="text" name="objectExtensionValue" />
+   		<button>Submit</button>
+</form>
