@@ -1,17 +1,16 @@
 package controllers;
-import views.html.index;
-import views.html.main;
 import com.ibm.opensirf.object.ExtensionPair;
-import play.*;
+
 import play.data.Form;
-import play.mvc.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.index;
 
 public class Application extends Controller {
 
     public Result index() {
         return ok(index.render("Your new application is ready."));
     }
-
     
     public Result addExtensionPair() {
     	ExtensionPair e = Form.form(ExtensionPair.class).bindFromRequest().get();

@@ -1,0 +1,55 @@
+@* objectExtension Template File *@
+
+<script type="text/javascript" src="/assets/javascripts/jquery-1.11.3.min.js"></script>
+
+<div id="extensionPairsGroup"></div>
+<p/>
+<button id="addExtensionPairButton">Add</button>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	var counter = 1;
+	addExtensionPairFormElements()
+
+	function addExtensionPairFormElements() {
+		var newTextBoxDiv = $(document.createElement('div')).attr("id", 'TextBoxDiv' + counter);	    	                
+		newTextBoxDiv.after().html(
+				'Key: <input type="text" name="objectExtensionKey"'+ counter + ' />' +
+				' Value: <input type="text" name="objectExtensionValue"'+ counter + ' />' +
+				' <button id="removeExtensionPairButton'+ counter + '+">Remove</button>');
+
+		$("removeExtensionPairButton" + counter).click(alert('a'));		
+		$("#extensionPairsGroup").append(newTextBoxDiv);
+		counter++;
+	}
+
+	function removeExtensionPairFormElements() {
+	}
+	
+    $("#addExtensionPairButton").click(addExtensionPairFormElements);
+
+     $("#removeButton").click(function () {
+        alert("R");
+		if(counter==1){
+        	return false;
+       	}   
+    	counter--;
+	    $("#TextBoxDiv" + counter).remove();
+	});
+		
+     $("#getButtonValue").click(function () {
+    	alert("G");
+		var msg = '';
+		for(i=1; i<counter; i++){
+   	  		msg += "\n Textbox #" + i + " : " + $('#textbox' + i).val();
+		}
+    	alert(msg);
+     });
+     
+  });
+</script>
+</head><body>
+

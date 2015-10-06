@@ -1,0 +1,42 @@
+@* objectExtension Template File *@
+
+<script type="text/javascript" src="/assets/javascripts/jquery-1.11.3.min.js"></script>
+
+<div id="extensionPairsGroup"></div>
+<p/>
+<button id="addExtensionPairButton">Add</button>
+<p/>
+<button id="submitExtensionPairButton">Submit</button>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	var counter = 1;
+	addExtensionPairFormElements()
+
+	function addExtensionPairFormElements() {
+		var extensionPairDiv = $(document.createElement('div')).attr("id", 'epDiv' + counter);
+		var removeExtensionPairButton = $(document.createElement('button')).
+		 	attr("id", 'removeExtensionPairButton'+ counter).
+		 	text('Remove');	    	                
+		removeExtensionPairButton.click({param1: counter}, removeExtensionPairFormElements);
+		extensionPairDiv.after().html(
+				'Key: <input type="text" name="objectExtensionKey"'+ counter + ' />' +
+				' Value: <input type="text" name="objectExtensionValue"'+ counter + ' />');
+		extensionPairDiv.append(removeExtensionPairButton);
+		$("#extensionPairsGroup").append(extensionPairDiv);
+		counter++;
+	}
+
+	function removeExtensionPairFormElements(event) {
+		alert(event.data.param1);
+		$("#epDiv" + event.data.param1).remove();
+	}
+	
+    $("#addExtensionPairButton").click(addExtensionPairFormElements);
+  });
+</script>
+</head><body>
+
