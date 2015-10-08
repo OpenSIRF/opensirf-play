@@ -1,11 +1,52 @@
-@(extensionForm: Form[org.opensirf.obj.Extension])
+@(extensionForm: Form[models.Extension])
+
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var counter = 1;
+		function addExtensionPairFormElements() {
+			var extensionPairDiv = $(document.createElement('div')).attr("id", 'epDiv' + counter);
+			var removeExtensionPairButton = $(document.createElement('button')).
+			 	attr("id", 'removeExtensionPairButton'+ counter).
+			 	text('Remove');	    	         
+			removeExtensionPairButton.click({param1: counter}, removeExtensionPairFormElements);
+			extensionPairDiv.after().html(
+					'objectExtensionKey: <input type="text" name="objectExtensionPairs['+ counter + '].objectExtensionKey" />' +
+					' objectExtensionValue: <input type="text" name="objectExtensionPairs['+ counter + '].objectExtensionValue" />');
+			extensionPairDiv.append(removeExtensionPairButton);
+			$("#extensionPairsDiv").append(extensionPairDiv);
+			counter++;
+		}
+		function removeExtensionPairFormElements(event) {
+			alert(event.data.param1);
+			$("#epDiv" + event.data.param1).remove();
+		}
+		
+	    $("#addPair").click(addExtensionPairFormElements);
+	  });
+</script>
+</head>
+
+<body>
 
 @helper.form(action = routes.Application.addExtension) {	
-	@helper.inputText(extensionForm("objectExtensionOrganization"))
-	@helper.inputText(extensionForm("objectExtensionDescription"))
+	<div id="extensionDiv">
+	<fieldSet>
+		@helper.inputText(extensionForm("objectExtensionOrganization"))
+		@helper.inputText(extensionForm("objectExtensionDescription"))
+		<div id="extensionPairsDiv">
+			@helper.repeat(extensionForm("objectExtensionPairs"), min=1) { extensionPair =>
+				@extensionPairTemplate(extensionPair)
+			}
+		</div>
+	</fieldSet>
 	
-	@helper.repeat(extensionForm("objectExtensionPairs"), min = 1) {
-		emailField => @helper.inputText(emailField)
-	}
-	<input type="submit" value="Submit">
+	<br/>
+	<button type="button" id="addPair">Add</button>
+	<input type="submit" value="Submit" />
+	</div>
 }

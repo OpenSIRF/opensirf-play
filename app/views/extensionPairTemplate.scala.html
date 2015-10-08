@@ -1,7 +1,6 @@
-@(extensionPairForm: Form[org.opensirf.obj.ExtensionPair])
-
-@helper.form(action = routes.Application.addExtensionPair) {
-	@helper.inputText(extensionPairForm("objectExtensionKey"))
-	@helper.inputText(extensionPairForm("objectExtensionValue"))
-	<input type="submit" value="Submit">
-}
+@(extensionPair: Field)
+objectExtensionKey:
+<input type="text" name="@extensionPair("objectExtensionKey").name" />
+            
+objectExtensionValue:
+<input type="text" name="@extensionPair("objectExtensionValue").name" />

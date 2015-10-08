@@ -1,11 +1,9 @@
 package controllers;
-import org.opensirf.obj.Extension;
-import org.opensirf.obj.ExtensionPair;
-
+import models.Extension;
+import models.ExtensionPair;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.extensionPairTemplate;
 import views.html.extensionTemplate;
 import views.html.index;
 
@@ -14,23 +12,26 @@ public class Application extends Controller {
     public Result index() {
         return ok(index.render("Your new application is ready."));
     }
-
-    public Result addExtensionPair() {
-    	Form<ExtensionPair> formExtensionPair = Form.form(ExtensionPair.class).bindFromRequest();
-    	ExtensionPair e = formExtensionPair.get();
-		return ok("Extension pair key: " + e.getObjectExtensionKey() +
-				"; value: " + e.getObjectExtensionValue());
-    }
     
     public Result addExtension() {
 	  Form<Extension> formExtension = Form.form(Extension.class).bindFromRequest();
 	  Extension e = formExtension.get();
-	  return ok("Extension organization: " + e.getObjectExtensionOrganization() +
-			  "; description: " + e.getObjectExtensionDescription());
-    }
-
-    public Result loadExtensionPairForm() {
-        return ok(extensionPairTemplate.render(Form.form(ExtensionPair.class)));
+	  
+	  StringBuffer sb = new StringBuffer();
+	  
+	  sb.append("Extension:\n");
+	  sb.append("\n");
+	  sb.append("Organization: " + e.getObjectExtensionOrganization() + "\n");
+	  sb.append("Description: " + e.getObjectExtensionDescription() + "\n");
+	  sb.append("\n");
+	  sb.append("Extension pairs:\n");
+	  
+	  for(ExtensionPair ep: e.getObjectExtensionPairs()) {
+		  sb.append("Key: " + ep.getObjectExtensionKey() +
+				  " Value: " + ep.getObjectExtensionValue() + "\n");
+	  }
+	  
+	  return ok(new String(sb));
     }
     
     public Result loadExtensionForm() {
