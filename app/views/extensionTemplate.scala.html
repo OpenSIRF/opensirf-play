@@ -1,0 +1,11 @@
+@(extensionForm: Form[org.opensirf.obj.Extension])
+
+@helper.form(action = routes.Application.addExtension) {	
+	@helper.inputText(extensionForm("objectExtensionOrganization"))
+	@helper.inputText(extensionForm("objectExtensionDescription"))
+	
+	@helper.repeat(extensionForm("objectExtensionPairs"), min = 1) {
+		emailField => @helper.inputText(emailField)
+	}
+	<input type="submit" value="Submit">
+}
