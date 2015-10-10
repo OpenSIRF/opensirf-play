@@ -1,13 +1,13 @@
-@(extensionForm: Form[models.Extension])
+@(extensionForm: Form[models.Extension], ext: Extension)
+@extension = @{ if(ext == null) new Extension("","") else ext } 
 
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
 
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-        <script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
-
+<script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		var counter = 1;
+		var counter = @extension.getObjectExtensionPairs().size();
 		function addExtensionPairFormElements() {
 			var extensionPairDiv = $(document.createElement('div')).attr("id", 'epDiv' + counter);
 			var removeExtensionPairButton = $(document.createElement('button')).
@@ -21,32 +21,41 @@
 			$("#extensionPairsDiv").append(extensionPairDiv);
 			counter++;
 		}
-		function removeExtensionPairFormElements(event) {
-			alert(event.data.param1);
-			$("#epDiv" + event.data.param1).remove();
+		
+		function renumber() {
+		    $('#extensionPairsDiv').each(function(j) {
+		    	$('div', this).each(function(i) {
+		            $('input', this).each(function() {
+			            $(this).attr('name', $(this).attr('name').replace(/objectExtensionPairs\[.+?\]/g, 'objectExtensionPairs[' + i + ']'));
+		            })
+		        })
+		    })
 		}
 		
-	    $("#addPair").click(addExtensionPairFormElements);
-	  });
+		function removeExtensionPairFormElements(event) {
+			$("#epDiv" + event.data.param1).remove();
+			renumber();
+		}
+	
+		$("#addPair").click(addExtensionPairFormElements);
+	});
 </script>
-</head>
 
-<body>
-
-@helper.form(action = routes.Application.addExtension) {	
+@helper.form(action = routes.Application.addExtension) {
 	<div id="extensionDiv">
 	<fieldSet>
-		@helper.inputText(extensionForm("objectExtensionOrganization"))
-		@helper.inputText(extensionForm("objectExtensionDescription"))
+		@helper.inputText(extensionForm("objectExtensionOrganization").copy(value=Some(extension.getObjectExtensionOrganization())))
+		@helper.inputText(extensionForm("objectExtensionDescription").copy(value=Some(extension.getObjectExtensionDescription())))
 		<div id="extensionPairsDiv">
-			@helper.repeat(extensionForm("objectExtensionPairs"), min=1) { extensionPair =>
-				@extensionPairTemplate(extensionPair)
+			@if(extension.getObjectExtensionPairs().size() > 0) {
+				@for((ep,epIndex) <- extension.getObjectExtensionPairs().zipWithIndex) {
+					@extensionPairTemplate(ep, epIndex)
+				}
 			}
 		</div>
-	</fieldSet>
-	
+	</fieldSet>	
 	<br/>
-	<button type="button" id="addPair">Add</button>
-	<input type="submit" value="Submit" />
+	<button type="button" id="addPair">Add extension pair</button>
+	<input type="submit" value="Submit"/>
 	</div>
 }

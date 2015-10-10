@@ -1,6 +1,17 @@
-@(extensionPair: Field)
+@(extP: ExtensionPair, index: Int = 0)
+
+@extensionPair = @{ if(extP == null) new ExtensionPair("","") else extP } 
+
+<script src="@routes.Assets.versioned("javascripts/dynexpair.js")" type="text/javascript"></script>
+
+<div id="epDiv@index.toString()">
+
 objectExtensionKey:
-<input type="text" name="@extensionPair("objectExtensionKey").name" />
+<input type="text" name="objectExtensionPairs[@index.toString()].objectExtensionKey" value="@extensionPair.getObjectExtensionKey()"/>
             
 objectExtensionValue:
-<input type="text" name="@extensionPair("objectExtensionValue").name" />
+<input type="text" name="objectExtensionPairs[@index.toString()].objectExtensionValue" value="@extensionPair.getObjectExtensionValue()" />
+
+<button type="button" id="removeExtensionPairButton@index.toString()" onclick="removeExtensionPairFormElements(@index.toString())">Remove</button>
+
+</div>
