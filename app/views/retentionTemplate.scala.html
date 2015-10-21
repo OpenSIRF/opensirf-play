@@ -1,0 +1,14 @@
+@(r: org.opensirf.obj.Retention)
+@import org.opensirf.obj.Retention
+
+@retention = @{ if(r == null) new Retention("","") else r } 
+
+<div id="rDiv">
+
+retentionType:
+<input type="text" name="objectRetention.retentionType" value="@retention.getRetentionType()"/>
+            
+retentionValue:
+<input type="text" name="objectRetention.retentionValue" value="@retention.getRetentionValue()" />
+
+</div>

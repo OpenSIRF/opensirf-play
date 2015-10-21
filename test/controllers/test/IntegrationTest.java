@@ -1,3 +1,4 @@
+package controllers.test;
 import org.junit.*;
 
 import play.mvc.*;

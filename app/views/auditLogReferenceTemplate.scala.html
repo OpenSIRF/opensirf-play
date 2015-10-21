@@ -1,0 +1,19 @@
+@(alr: org.opensirf.audit.AuditLogReference)
+
+@import org.opensirf.audit.AuditLogReference
+
+@auditLogReference = @{ if(alr == null) new AuditLogReference("","", "") else alr } 
+
+<div id="alrDiv">
+
+referenceType:
+<input type="text" name="objectAuditLogReference.referenceType" value="@auditLogReference.getReferenceType()"/>
+            
+referenceRole:
+<input type="text" name="objectAuditLogReference.referenceRole" value="@auditLogReference.getReferenceRole()" />
+
+referenceValue:
+<input type="text" name="objectAuditLogReference.referenceValue" value="@auditLogReference.getReferenceValue()" />
+
+</div>
+

@@ -1,0 +1,11 @@
+@(pf: org.opensirf.obj.PackagingFormat)
+@import org.opensirf.obj.PackagingFormat
+
+@packagingFormat = @{ if(pf == null) new PackagingFormat("") else pf } 
+
+<div id="pfDiv">
+
+packagingFormatName:
+<input type="text" name="packagingFormat.packagingFormatName" value="@packagingFormat.getPackagingFormatName()"/>
+
+</div>

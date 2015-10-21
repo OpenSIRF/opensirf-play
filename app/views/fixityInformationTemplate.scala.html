@@ -1,0 +1,61 @@
+@(fixityInformationForm: Form[models.FixityInformation], fi: FixityInformation)
+@fixityInformation = @{ if(fi == null) new FixityInformation() else fi } 
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+
+<script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var counter = @fixityInformation.getDigestInformation().size();
+		function addDigestInformationFormElements() {
+			var digestInformationDiv = $(document.createElement('div')).attr("id", 'diDiv' + counter);
+			var removeDigestInformationButton = $(document.createElement('button')).
+			 	attr("id", 'removeDigestInformationButton'+ counter).
+			 	text('Remove');	    	         
+			removeDigestInformationButton.click({param1: counter}, removeDigestInformationFormElements);
+			digestInformationDiv.after().html(
+					'digestOriginator: <input type="text" name="digestInformation['+ counter + '].digestOriginator" />' +
+					' digestAlgorithm: <input type="text" name="digestInformation['+ counter + '].digestAlgorithm" />' +
+					' digestValue: <input type="text" name="digestInformation['+ counter + '].digestValue" />');
+			digestInformationDiv.append(removeDigestInformationButton);
+			$("#digestInformationDiv").append(digestInformationDiv);
+			counter++;
+		}
+		
+		function renumber() {
+		    $('#digestInformationDiv').each(function(j) {
+		    	$('div', this).each(function(i) {
+		            $('input', this).each(function() {
+			            $(this).attr('name', $(this).attr('name').replace(/digestInformations\[.+?\]/g, 'digestInformation[' + i + ']'));
+		            })
+		        })
+		    })
+		}
+		
+		function removeDigestInformationFormElements(event) {
+			$("#diDiv" + event.data.param1).remove();
+			renumber();
+		}
+	
+		$("#addDigestInformation").click(addDigestInformationFormElements);
+	});
+</script>
+
+@helper.form(action = routes.Application.addFixityInformation) {
+	<div id="fixityInformationDiv">
+	<fieldSet>
+		@helper.inputText(fixityInformationForm("lastCheckDate").copy(value=Some(fixityInformation.getLastCheckDate())))
+		<div id="digestInformationDiv">
+			@if(fixityInformation.getDigestInformation().size() > 0) {
+				@for((di,diIndex) <- fixityInformation.getDigestInformation().zipWithIndex) {
+					@digestInformationTemplate(di,diIndex)
+				}
+			}
+		</div>
+	</fieldSet>	
+	<br/>
+	<button type="button" id="addDigestInformation">Add digest information</button>
+	<input type="submit" value="Submit"/>
+	</div>
+}
