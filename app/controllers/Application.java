@@ -2,17 +2,22 @@ package controllers;
 
 import org.opensirf.audit.AuditLogReference;
 import org.opensirf.audit.PreservationObjectAuditLog;
+import org.opensirf.obj.DigestInformation;
+import org.opensirf.obj.Extension;
+import org.opensirf.obj.ExtensionPair;
+import org.opensirf.obj.FixityInformation;
+import org.opensirf.obj.PackagingFormat;
+import org.opensirf.obj.PreservationObjectInformation;
+import org.opensirf.obj.Retention;
 
-import models.DigestInformation;
-import models.Extension;
-import models.ExtensionPair;
-import models.FixityInformation;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.extensionTemplate;
 import views.html.fixityInformationTemplate;
 import views.html.index;
+import views.html.preservationObjectAuditLogTemplate;
+import views.html.preservationObjectInformationTemplate;
 
 public class Application extends Controller {
 
@@ -34,6 +39,20 @@ public class Application extends Controller {
 		Form<FixityInformation> formFixityInformation = Form.form(FixityInformation.class).bindFromRequest();
 		FixityInformation e = formFixityInformation.get();
 		return ok(fixityInformationTemplate.render(Form.form(FixityInformation.class), e));
+	}
+
+	public Result addPreservationObjectInformation() {
+		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(PreservationObjectInformation.class).bindFromRequest();
+		PreservationObjectInformation poi = formPreservationObjectInformation.get();
+		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
+	}
+	
+	public Result poiUnitTest() {
+		PreservationObjectInformation poi = new PreservationObjectInformation();
+		poi.setObjectRetention(new Retention("retType", "retValue"));
+		poi.setPackagingFormat(new PackagingFormat("packFormat"));
+		
+		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
 	}
 
 	public Result fixityInformationForm() {

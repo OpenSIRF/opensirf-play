@@ -1,4 +1,7 @@
-@(fixityInformationForm: Form[models.FixityInformation], fi: FixityInformation)
+@(fixityInformationForm: Form[org.opensirf.obj.FixityInformation], fi: org.opensirf.obj.FixityInformation)
+
+@import org.opensirf.obj.FixityInformation
+
 @fixityInformation = @{ if(fi == null) new FixityInformation() else fi } 
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">

@@ -1,4 +1,6 @@
-@(extP: ExtensionPair, index: Int = 0)
+@(extP: org.opensirf.obj.ExtensionPair, index: Int = 0)
+
+@import org.opensirf.obj.ExtensionPair
 
 @extensionPair = @{ if(extP == null) new ExtensionPair("","") else extP } 
 

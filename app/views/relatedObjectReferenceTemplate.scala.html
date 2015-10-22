@@ -1,0 +1,19 @@
+@(ror: org.opensirf.obj.RelatedObjectReference)
+
+@import org.opensirf.obj.RelatedObjectReference
+
+@relatedObjectReference = @{ if(ror == null) new RelatedObjectReference("","","") else ror } 
+
+<div id="rorDiv">
+
+referenceType:
+<input type="text" name="objectRelatedObjectReference.referenceType" value="@relatedObjectReference.getReferenceType()"/>
+            
+referenceRole:
+<input type="text" name="objectRelatedObjectReference.referenceRole" value="@relatedObjectReference.getReferenceRole()" />
+
+referenceValue:
+<input type="text" name="objectRelatedObjectReference.referenceValue" value="@relatedObjectReference.getReferenceValue()" />
+
+</div>
+

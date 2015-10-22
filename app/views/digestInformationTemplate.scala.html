@@ -1,4 +1,6 @@
-@(digI: DigestInformation, index: Int = 0)
+@(digI: org.opensirf.obj.DigestInformation, index: Int = 0)
+
+@import org.opensirf.obj.DigestInformation
 
 @digestInformation = @{ if(digI == null) new DigestInformation("","", "") else digI } 
 

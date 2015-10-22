@@ -1,0 +1,37 @@
+@(poiForm: Form[org.opensirf.obj.PreservationObjectInformation], poi: org.opensirf.obj.PreservationObjectInformation)
+
+@import org.opensirf.obj.PreservationObjectInformation
+
+@presObjInfo = @{ if(poi == null) new PreservationObjectInformation() else poi }
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+
+<script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
+
+@helper.form(action = routes.Application.addPreservationObjectInformation) {
+	<div id="preservationObjectInformationDiv">
+	<fieldSet>
+		@* Begin: Dates categories *@
+		@helper.inputText(poiForm("objectCreationDate").copy(value=Some(presObjInfo.getObjectCreationDate())))
+		@helper.inputText(poiForm("objectLastModifiedDate").copy(value=Some(presObjInfo.getObjectLastModifiedDate())))
+		@helper.inputText(poiForm("objectLastAccessedDate").copy(value=Some(presObjInfo.getObjectLastAccessedDate())))
+		@* End: Dates categories *@
+		
+		@* Begin: Retention category *@
+		@retentionTemplate(poi.getObjectRetention())
+		@* End: Retention category *@
+		
+		@* Begin: Packaging format category *@
+		@packagingFormatTemplate(poi.getPackagingFormat())
+		@* End: Packaging format category *@
+		
+		
+	</fieldSet>	
+	<br/>
+	<input type="submit" value="Submit"/>
+	</div>
+
+}
+
+
