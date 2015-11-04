@@ -1,37 +1,46 @@
-@(numPairs: Integer)
+@(numPairs: Integer, index: Integer)
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		var counter = @numPairs;
-		function addExtensionPairFormElements() {
+		function addExtensionPairFormElements(event) {
 			var extensionPairDiv = $(document.createElement('div')).attr("id", 'epDiv' + counter);
 			var removeExtensionPairButton = $(document.createElement('button')).
-			 	attr("id", 'removeExtensionPairButton'+ counter).
-			 	text('Remove');	    	         
+			 	attr("id", 'removeExtensionPairButton@index.'+ counter).
+			 	text('Remove');
 			removeExtensionPairButton.click({param1: counter}, removeExtensionPairFormElements);
 			extensionPairDiv.after().html(
-					'objectExtensionKey: <input type="text" name="objectExtensionPairs['+ counter + '].objectExtensionKey" />' +
-					' objectExtensionValue: <input type="text" name="objectExtensionPairs['+ counter + '].objectExtensionValue" />');
+					'objectExtension[' + index + '].objectExtensionPairs['+ counter + '].objectExtensionKey: <input type="text" name="objectExtension[' + index + '].objectExtensionPairs['+ counter + '].objectExtensionKey" />' +
+					' objectExtension[' + index + '].objectExtensionPairs['+ counter + '].objectExtensionValue: <input type="text" name="objectExtension[' + index + '].objectExtensionPairs['+ counter + '].objectExtensionValue" />');
 			extensionPairDiv.append(removeExtensionPairButton);
-			$("#extensionPairsDiv").append(extensionPairDiv);
+			$("#extensionPairsDiv@index").append(extensionPairDiv);
 			counter++;
 		}
-		
+	
 		function renumber() {
-		    $('#extensionPairsDiv').each(function(j) {
+			alert('renumbering extensionPairsDiv@index');
+		    $('#extensionPairsDiv@index').each(function(j) {
 		    	$('div', this).each(function(i) {
 		            $('input', this).each(function() {
-			            $(this).attr('name', $(this).attr('name').replace(/objectExtensionPairs\[.+?\]/g, 'objectExtensionPairs[' + i + ']'));
+		            	//alert('i='+ i + ' j=' + j + ' replacing objectExtension[@index].objectExtensionPairs[] with objectExtension[@index].objectExtensionPairs[' + i + ']');
+		            	//oldname = $(this).attr('name');
+		            	newname = $(this).attr('name').replace(/objectExtensionPairs\[.+?\]/g, 'objectExtensionPairs[' + i + ']');
+		            	//alert('i=' + i + '; oldname=' + oldname + '; newname=' + newname);
+			            $(this).attr('name', newname);
 		            })
 		        })
 		    })
 		}
 		
 		function removeExtensionPairFormElements(event) {
-			$("#epDiv" + event.data.param1).remove();
+			pairToRemove = "#epDiv@index" + "-" + event.data.param1;
+			alert('removing... ' + pairToRemove);
+			$(pairToRemove).remove();
+			alert('removed');
 			renumber();
 		}
-	
-		$("#addPair").click(addExtensionPairFormElements);
+		
+		var index = @index;
+		$("#addPair@index").click({param1: index}, addExtensionPairFormElements);
 	});
 </script>

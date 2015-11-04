@@ -26,12 +26,31 @@
 		@packagingFormatTemplate(poi.getPackagingFormat())
 		@* End: Packaging format category *@
 		
+		@* Begin: Fixity information category *@
+		@fixityInformationTemplate(poi.getObjectFixity())
+		@* End: Fixity information category *@
+		
+		@* Begin: Extension category *@
+		@if(poi.getObjectExtension().size() > 0) {
+			@for((e,eIndex) <- poi.getObjectExtension().zipWithIndex) {
+				@extensionTemplate(e,eIndex)
+			}
+		}
+		@* End: Extension category *@
+		
 		
 	</fieldSet>	
 	<br/>
 	<input type="submit" value="Submit"/>
 	</div>
-
 }
 
+@*
 
+	private ArrayList<PreservationObjectIdentifier> objectIdentifiers;
+
+	private ArrayList<RelatedObjects> objectRelatedObjects;
+
+	private ArrayList<PreservationObjectAuditLog> objectAuditLog;
+
+*@
