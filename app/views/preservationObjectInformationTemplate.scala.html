@@ -17,6 +17,7 @@
 <script src="@routes.Assets.versioned("javascripts/dynextp.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("javascripts/dynext.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("javascripts/dyndigi.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("javascripts/dynid.js")" type="text/javascript"></script>
 
 @helper.form(action = routes.Application.addPreservationObjectInformation) {
 	<div id="preservationObjectInformationDiv">
@@ -50,6 +51,17 @@
 		<button type="button" id="addExtension" onclick="addExtensionFormElements();">Add extension</button>
 		@* End: Extension category *@
 		
+		@* Begin: Identifier categories *@
+		<div id="identifiersDiv">
+			@if(poi.getObjectIdentifiers().size() > 0) {
+				@for((i,iIndex) <- poi.getObjectIdentifiers().zipWithIndex) {
+					@identifierTemplate(i,iIndex)
+				}
+			}
+		</div>
+		<button type="button" id="addIdentifier" onclick="addIdentifierFormElements();">Add preservation object identifier</button>
+		@* End: Identifier categories *@
+		
 		
 	</fieldSet>	
 	<br/>
@@ -58,9 +70,6 @@
 }
 
 @*
-
-	private ArrayList<PreservationObjectIdentifier> objectIdentifiers;
-
 	private ArrayList<RelatedObjects> objectRelatedObjects;
 
 	private ArrayList<PreservationObjectAuditLog> objectAuditLog;

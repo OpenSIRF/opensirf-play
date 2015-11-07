@@ -1,0 +1,21 @@
+@(pon: org.opensirf.obj.PreservationObjectName, index: Int = 0, nameIndex: Int)
+
+@import org.opensirf.obj.PreservationObjectName
+
+@objectName = @{ if(pon == null) new PreservationObjectName() else pon }
+
+<div id="onDiv@nameIndex-@index.toString()">
+
+objectIdentifiers[@index].objectNames[@nameIndex.toString()].objectIdentifierType
+<input type="text" name="objectIdentifiers[@index].objectNames[@nameIndex.toString()].objectIdentifierType" value="@objectName.getObjectIdentifierType()"/>
+
+objectIdentifiers[@index].objectNames[@nameIndex.toString()].objectIdentifierLocale
+<input type="text" name="objectIdentifiers[@index].objectNames[@nameIndex.toString()].objectIdentifierLocale" value="@objectName.getObjectIdentifierLocale()"/>
+
+objectIdentifiers[@index].objectNames[@nameIndex.toString()].objectIdentifierValu
+<input type="text" name="objectIdentifiers[@index].objectNames[@nameIndex.toString()].objectIdentifierValue" value="@objectName.getObjectIdentifierValue()"/>
+
+<button type="button" id="removeObjectNameButton@nameIndex.toString-@index.toString()" onclick="removeObjectNameFormElements(@nameIndex, @index);">Remove</button>
+
+</div>
+

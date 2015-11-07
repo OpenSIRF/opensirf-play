@@ -22,7 +22,7 @@ function removeExtensionFormElements(arg1) {
 		extensionIndex = arg1;
 	}
 	extensionToRemove = "#extensionDiv" + extensionIndex;
-	code = $(extensionToRemove).remove();
+	$(extensionToRemove).remove();
 	renumberExtensions();
 }
 

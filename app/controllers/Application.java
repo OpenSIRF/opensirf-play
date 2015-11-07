@@ -7,14 +7,19 @@ import org.opensirf.obj.Extension;
 import org.opensirf.obj.ExtensionPair;
 import org.opensirf.obj.FixityInformation;
 import org.opensirf.obj.PackagingFormat;
+import org.opensirf.obj.PreservationObjectIdentifier;
 import org.opensirf.obj.PreservationObjectInformation;
+import org.opensirf.obj.PreservationObjectLogicalIdentifier;
+import org.opensirf.obj.PreservationObjectName;
+import org.opensirf.obj.PreservationObjectParentIdentifier;
+import org.opensirf.obj.PreservationObjectVersionIdentifier;
 import org.opensirf.obj.Retention;
 
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.preservationObjectInformationTemplate;
 import views.html.preservationObjectAuditLogTemplate;
+import views.html.preservationObjectInformationTemplate;
 
 public class Application extends Controller {
 
@@ -46,6 +51,20 @@ public class Application extends Controller {
 		
 		poi.getObjectExtension().add(e1);
 		poi.getObjectExtension().add(e2);
+		
+		PreservationObjectIdentifier poid = new PreservationObjectIdentifier();
+		poid.setObjectLogicalIdentifier(new PreservationObjectLogicalIdentifier("logicalType1", "logicalLocale1", "logicalValue1"));
+		poid.setObjectVersionIdentifier(new PreservationObjectVersionIdentifier("versionType1", "versionLocale1", "versionValue1"));
+		poid.setObjectParentIdentifier(new PreservationObjectParentIdentifier("parentType1", "parentLocale1", "parentValue1"));
+		poid.putObjectName(new PreservationObjectName("nameType1", "nameLocale1", "nameValue1"));
+		poi.addObjectIdentifier(poid);
+		
+		poid = new PreservationObjectIdentifier();
+		poid.setObjectLogicalIdentifier(new PreservationObjectLogicalIdentifier("logicalType2", "logicalLocale2", "logicalValue2"));
+		poid.setObjectVersionIdentifier(new PreservationObjectVersionIdentifier("versionType2", "versionLocale2", "versionValue2"));
+		poid.setObjectParentIdentifier(new PreservationObjectParentIdentifier("parentType2", "parentLocale2", "parentValue2"));
+		poid.putObjectName(new PreservationObjectName("nameType2", "nameLocale2", "nameValue2"));
+		poi.addObjectIdentifier(poid);
 		
 		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
 	}

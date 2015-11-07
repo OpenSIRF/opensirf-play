@@ -1,0 +1,60 @@
+@(poid: org.opensirf.obj.PreservationObjectIdentifier, index: Int = 0)
+
+@import org.opensirf.obj.PreservationObjectIdentifier
+
+@presObjId = @{ if(poid == null) new PreservationObjectIdentifier() else poid }
+		
+@*@dynamicObjectNamesJS(presObjId.getObjectNames().size(), index)*@
+
+<div id="identifierDiv@index">
+
+debug: @presObjId
+debug 2: @presObjId.getObjectVersionIdentifier()
+debug 3: @presObjId.getObjectVersionIdentifier().getObjectIdentifierType()
+
+objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierType
+<input type="text" name="objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierType" value="@presObjId.getObjectVersionIdentifier().getObjectIdentifierType()"/>
+
+objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierLocale
+<input type="text" name="objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierLocale" value="@presObjId.getObjectVersionIdentifier().getObjectIdentifierLocale()"/>
+
+objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierValue
+<input type="text" name="objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierValue" value="@presObjId.getObjectVersionIdentifier().getObjectIdentifierValue()"/>
+	
+	
+objectIdentifiers[@index].objectParentIdentifier.objectIdentifierType
+<input type="text" name="objectIdentifiers[@index].objectParentIdentifier.objectIdentifierType" value="@presObjId.getObjectParentIdentifier().getObjectIdentifierType()"/>
+
+objectIdentifiers[@index].objectParentIdentifier.objectIdentifierLocale
+<input type="text" name="objectIdentifiers[@index].objectParentIdentifier.objectIdentifierLocale" value="@presObjId.getObjectParentIdentifier().getObjectIdentifierLocale()"/>
+
+objectIdentifiers[@index].objectParentIdentifier.objectIdentifierValue
+<input type="text" name="objectIdentifiers[@index].objectParentIdentifier.objectIdentifierValue" value="@presObjId.getObjectParentIdentifier().getObjectIdentifierValue()"/>
+
+	
+objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierType
+<input type="text" name="objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierType" value="@presObjId.getObjectLogicalIdentifier().getObjectIdentifierType()"/>
+
+objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierLocale
+<input type="text" name="objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierLocale" value="@presObjId.getObjectLogicalIdentifier().getObjectIdentifierLocale()"/>
+
+objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierValue
+<input type="text" name="objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierValue" value="@presObjId.getObjectLogicalIdentifier().getObjectIdentifierValue()"/>
+	
+<div id="objectNamesDiv@index">
+	@if(presObjId.getObjectNames().size() > 0) {
+		@for((on,onIndex) <- presObjId.getObjectNames().zipWithIndex) {
+			@objectNameTemplate(on, onIndex, index)
+		}
+	}
+</div>
+
+<button type="button" id="addIdentifierName@index" onclick="addIdentifierNameFormElements(@index);">Add preservation object name</button>
+
+<button type="button" id="removeIdentifierButton@index" onclick="removeIdentifierFormElements(@index);">Remove identifier</button>
+
+@* ; *@
+
+<p />
+
+</div>
