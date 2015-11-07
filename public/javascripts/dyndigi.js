@@ -1,18 +1,35 @@
-function renumber() {
+function removeDigestInformationFormElements(arg) {
+	if(arg.data == null) {
+		index = arg;
+	} else {
+		index = arg.data.param1;
+	}
+
+	$("#diDiv" + index).remove();
+	renumberDigestInformation();
+}
+
+function addDigestInformationFormElements() {
+	var digestInformationDiv = $(document.createElement('div')).attr("id", 'diDiv' + digestCounter);
+	var removeDigestInformationButton = $(document.createElement('button')).
+	 	attr("id", 'removeDigestInformationButton'+ digestCounter).
+	 	text('Remove');
+	removeDigestInformationButton.click({param1: digestCounter}, removeDigestInformationFormElements);
+	digestInformationDiv.after().html(
+			'objectFixity.digestOriginator <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestOriginator" />' +
+			' objectFixity.digestAlgorithm <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestAlgorithm" />' +
+			' objectFixity.digestValue <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestValue" />');
+	digestInformationDiv.append(removeDigestInformationButton);
+	$("#digestInformationDiv").append(digestInformationDiv);
+	digestCounter++;
+}
+
+function renumberDigestInformation() {
     $('#digestInformationDiv').each(function(j) {
     	$('div', this).each(function(i) {
-    		$('input', this).each(function() {
+            $('input', this).each(function() {
 	            $(this).attr('name', $(this).attr('name').replace(/digestInformation\[.+?\]/g, 'digestInformation[' + i + ']'));
-            })
-
-            $('button', this).each(function() {
-	            $(this).attr('onclick', $(this).attr('onclick').replace(/removeDigestInformationFormElements\(.+?\)/g, 'removeDigestInformationFormElements(' + i + ')'));
             })
         })
     })
-}
-
-function removeDigestInformationFormElements(index) {
-	$("#diDiv" + index).remove();
-	renumber();
 }

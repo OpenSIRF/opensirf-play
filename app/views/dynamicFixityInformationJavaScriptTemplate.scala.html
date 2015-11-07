@@ -1,38 +1,5 @@
 @(numDigestInformation: Integer)
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		var counter = @numDigestInformation;
-		function addDigestInformationFormElements() {
-			var digestInformationDiv = $(document.createElement('div')).attr("id", 'diDiv' + counter);
-			var removeDigestInformationButton = $(document.createElement('button')).
-			 	attr("id", 'removeDigestInformationButton'+ counter).
-			 	text('Remove');
-			removeDigestInformationButton.click({param1: counter}, removeDigestInformationFormElements);
-			digestInformationDiv.after().html(
-					'objectFixity.digestOriginator: <input type="text" name="objectFixity.digestInformation['+ counter + '].digestOriginator" />' +
-					' objectFixity.digestAlgorithm: <input type="text" name="objectFixity.digestInformation['+ counter + '].digestAlgorithm" />' +
-					' objectFixity.digestValue: <input type="text" name="objectFixity.digestInformation['+ counter + '].digestValue" />');
-			digestInformationDiv.append(removeDigestInformationButton);
-			$("#digestInformationDiv").append(digestInformationDiv);
-			counter++;
-		}
-		
-		function renumber() {
-		    $('#digestInformationDiv').each(function(j) {
-		    	$('div', this).each(function(i) {
-		            $('input', this).each(function() {
-			            $(this).attr('name', $(this).attr('name').replace(/digestInformation\[.+?\]/g, 'digestInformation[' + i + ']'));
-		            })
-		        })
-		    })
-		}
-		
-		function removeDigestInformationFormElements(event) {
-			$("#diDiv" + event.data.param1).remove();
-			renumber();
-		}
-	
-		$("#addDigestInformation").click(addDigestInformationFormElements);
-	});
+	digestCounter = @numDigestInformation;
 </script>

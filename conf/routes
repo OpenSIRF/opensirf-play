@@ -13,4 +13,3 @@ GET		/addPreservationObjectInformation			@controllers.Application.addPreservatio
 
 GET		/poiUnitTest								@controllers.Application.poiUnitTest()
 
-GET		/testButton									@controllers.Application.testButton()

@@ -3,14 +3,16 @@
 @import org.opensirf.obj.ExtensionPair
 
 @extensionPair = @{ if(extP == null) new ExtensionPair("","") else extP }
-@dynamicExtensionPairJSTemplate(extensionIndex)
 
 <div id="epDiv@extensionIndex-@index.toString()">
 
-objectExtension[@extensionIndex].objectExtensionPairs[@index.toString()].objectExtensionKey:
+objectExtension[@extensionIndex].objectExtensionPairs[@index.toString()].objectExtensionKey
 <input type="text" name="objectExtension[@extensionIndex].objectExtensionPairs[@index.toString()].objectExtensionKey" value="@extensionPair.getObjectExtensionKey()"/>
-objectExtension[@extensionIndex].objectExtensionPairs[@index.toString()].objectExtensionValue:
+
+objectExtension[@extensionIndex].objectExtensionPairs[@index.toString()].objectExtensionValue
 <input type="text" name="objectExtension[@extensionIndex].objectExtensionPairs[@index.toString()].objectExtensionValue" value="@extensionPair.getObjectExtensionValue()" />
-<button type="button" id="removeExtensionPairButton@extensionIndex.toString.@index.toString()" onclick="removeExtensionPairFormElements2(@index);">Remove</button>
+
+<button type="button" id="removeExtensionPairButton@extensionIndex.toString.@index.toString()" onclick="removeExtensionPairFormElements(@extensionIndex, @index);">Remove</button>
 
 </div>
+

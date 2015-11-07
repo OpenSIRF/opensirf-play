@@ -4,15 +4,16 @@
 
 @extension = @{ if(ext == null) new Extension("","") else ext } 
 
-<script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
 @dynamicExtensionJavaScriptTemplate(extension.getObjectExtensionPairs().size(), index)
 
 <div id="extensionDiv@index">
-<fieldSet>
-	objectExtension[@index].objectExtensionOrganization:
+
+	objectExtension[@index].objectExtensionOrganization
 	<input type="text" name="objectExtension[@index].objectExtensionOrganization" value="@extension.getObjectExtensionOrganization()"/>
-	objectExtension[@index].objectExtensionDescription:
+	
+	objectExtension[@index].objectExtensionDescription
 	<input type="text" name="objectExtension[@index].objectExtensionDescription" value="@extension.getObjectExtensionDescription()"/>
+	
 	<div id="extensionPairsDiv@index">
 		@if(extension.getObjectExtensionPairs().size() > 0) {
 			@for((ep,epIndex) <- extension.getObjectExtensionPairs().zipWithIndex) {
@@ -20,8 +21,11 @@
 			}
 		}
 	</div>
-</fieldSet>	
-<br/>
-<button type="button" id="addPair@index">Add extension pair</button>
+
+<button type="button" id="addPair@index" onclick="addExtensionPairFormElements(@index);">Add extension pair</button>
+
+<button type="button" id="removeExtensionButton@index" onclick="removeExtensionFormElements(@index);">Remove extension</button>
+
+<p />
 
 </div>

@@ -2,21 +2,23 @@
 
 @import org.opensirf.obj.DigestInformation
 
-@digestInformation = @{ if(digI == null) new DigestInformation("","", "") else digI } 
-
-<script src="@routes.Assets.versioned("javascripts/dyndigi.js")" type="text/javascript"></script>
+@digestInformation = @{ if(digI == null) new DigestInformation("", "", "") else digI } 
 
 <div id="diDiv@index.toString()">
 
-digestOriginator:
+<dl class=" " id="objectFixity_digestInformation_field">
+
+objectFixity.digestOriginator
 <input type="text" name="objectFixity.digestInformation[@index.toString()].digestOriginator" value="@digestInformation.getDigestOriginator()"/>
             
-digestAlgorithm:
+objectFixity.digestAlgorithm
 <input type="text" name="objectFixity.digestInformation[@index.toString()].digestAlgorithm" value="@digestInformation.getDigestAlgorithm()" />
 
-digestValue:
+objectFixity.digestValue
 <input type="text" name="objectFixity.digestInformation[@index.toString()].digestValue" value="@digestInformation.getDigestValue()" />
 
 <button type="button" id="removeDigestInformationButton@index.toString()" onclick="removeDigestInformationFormElements(@index.toString())">Remove</button>
+
+</dl>
 
 </div>
