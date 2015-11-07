@@ -4,7 +4,7 @@
 
 @extension = @{ if(ext == null) new Extension("","") else ext } 
 
-@dynamicExtensionJavaScriptTemplate(extension.getObjectExtensionPairs().size(), index)
+@dynamicExtensionJS(extension.getObjectExtensionPairs().size(), index)
 
 <div id="extensionDiv@index">
 

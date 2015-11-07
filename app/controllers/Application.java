@@ -13,15 +13,10 @@ import org.opensirf.obj.Retention;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.index;
 import views.html.preservationObjectInformationTemplate;
 import views.html.preservationObjectAuditLogTemplate;
 
 public class Application extends Controller {
-
-	public Result index() {
-		return ok(index.render());
-	}
 
 	public Result addPreservationObjectInformation() {
 		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(PreservationObjectInformation.class).bindFromRequest();

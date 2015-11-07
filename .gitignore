@@ -1,4 +1,5 @@
 .cache-main
+.cache-tests
 logs
 target
 /.idea
@@ -8,3 +9,4 @@ target
 /.settings
 /RUNNING_PID
 /bin/
+/.tmpBin/
