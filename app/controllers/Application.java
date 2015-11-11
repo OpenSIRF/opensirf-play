@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.ArrayList;
+
 import org.opensirf.audit.AuditLogReference;
 import org.opensirf.audit.PreservationObjectAuditLog;
 import org.opensirf.obj.DigestInformation;
@@ -13,6 +15,8 @@ import org.opensirf.obj.PreservationObjectLogicalIdentifier;
 import org.opensirf.obj.PreservationObjectName;
 import org.opensirf.obj.PreservationObjectParentIdentifier;
 import org.opensirf.obj.PreservationObjectVersionIdentifier;
+import org.opensirf.obj.RelatedObjectReference;
+import org.opensirf.obj.RelatedObjects;
 import org.opensirf.obj.Retention;
 
 import play.data.Form;
@@ -25,7 +29,9 @@ public class Application extends Controller {
 
 	public Result addPreservationObjectInformation() {
 		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(PreservationObjectInformation.class).bindFromRequest();
+				
 		PreservationObjectInformation poi = formPreservationObjectInformation.get();
+		
 		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
 	}
 	
@@ -57,14 +63,23 @@ public class Application extends Controller {
 		poid.setObjectVersionIdentifier(new PreservationObjectVersionIdentifier("versionType1", "versionLocale1", "versionValue1"));
 		poid.setObjectParentIdentifier(new PreservationObjectParentIdentifier("parentType1", "parentLocale1", "parentValue1"));
 		poid.putObjectName(new PreservationObjectName("nameType1", "nameLocale1", "nameValue1"));
+		poid.putObjectName(new PreservationObjectName("nameType2", "nameLocale2", "nameValue2"));
+		poid.putObjectName(new PreservationObjectName("nameType3", "nameLocale3", "nameValue3"));
 		poi.addObjectIdentifier(poid);
 		
 		poid = new PreservationObjectIdentifier();
 		poid.setObjectLogicalIdentifier(new PreservationObjectLogicalIdentifier("logicalType2", "logicalLocale2", "logicalValue2"));
 		poid.setObjectVersionIdentifier(new PreservationObjectVersionIdentifier("versionType2", "versionLocale2", "versionValue2"));
 		poid.setObjectParentIdentifier(new PreservationObjectParentIdentifier("parentType2", "parentLocale2", "parentValue2"));
-		poid.putObjectName(new PreservationObjectName("nameType2", "nameLocale2", "nameValue2"));
+		poid.putObjectName(new PreservationObjectName("nameType4", "nameLocale4", "nameValue4"));
+		poid.putObjectName(new PreservationObjectName("nameType5", "nameLocale5", "nameValue5"));
 		poi.addObjectIdentifier(poid);
+		
+		ArrayList<RelatedObjects> relatedObjects = new ArrayList<RelatedObjects>();
+		RelatedObjects relatedObject = new RelatedObjects();
+		relatedObject.setObjectRelatedObjectReference(new RelatedObjectReference("type", "role", "value"));
+		relatedObjects.add(relatedObject);
+		poi.setObjectRelatedObjects(relatedObjects);
 		
 		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
 	}

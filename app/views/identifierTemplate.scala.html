@@ -4,13 +4,9 @@
 
 @presObjId = @{ if(poid == null) new PreservationObjectIdentifier() else poid }
 		
-@*@dynamicObjectNamesJS(presObjId.getObjectNames().size(), index)*@
+@dynamicIdentifierJS(presObjId.getObjectNames().size(), index)
 
 <div id="identifierDiv@index">
-
-debug: @presObjId
-debug 2: @presObjId.getObjectVersionIdentifier()
-debug 3: @presObjId.getObjectVersionIdentifier().getObjectIdentifierType()
 
 objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierType
 <input type="text" name="objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierType" value="@presObjId.getObjectVersionIdentifier().getObjectIdentifierType()"/>
@@ -20,7 +16,8 @@ objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierLocale
 
 objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierValue
 <input type="text" name="objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierValue" value="@presObjId.getObjectVersionIdentifier().getObjectIdentifierValue()"/>
-	
+
+<br />
 	
 objectIdentifiers[@index].objectParentIdentifier.objectIdentifierType
 <input type="text" name="objectIdentifiers[@index].objectParentIdentifier.objectIdentifierType" value="@presObjId.getObjectParentIdentifier().getObjectIdentifierType()"/>
@@ -31,6 +28,7 @@ objectIdentifiers[@index].objectParentIdentifier.objectIdentifierLocale
 objectIdentifiers[@index].objectParentIdentifier.objectIdentifierValue
 <input type="text" name="objectIdentifiers[@index].objectParentIdentifier.objectIdentifierValue" value="@presObjId.getObjectParentIdentifier().getObjectIdentifierValue()"/>
 
+<br />
 	
 objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierType
 <input type="text" name="objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierType" value="@presObjId.getObjectLogicalIdentifier().getObjectIdentifierType()"/>
@@ -40,7 +38,7 @@ objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierLocale
 
 objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierValue
 <input type="text" name="objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierValue" value="@presObjId.getObjectLogicalIdentifier().getObjectIdentifierValue()"/>
-	
+
 <div id="objectNamesDiv@index">
 	@if(presObjId.getObjectNames().size() > 0) {
 		@for((on,onIndex) <- presObjId.getObjectNames().zipWithIndex) {
@@ -49,11 +47,9 @@ objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierValue
 	}
 </div>
 
-<button type="button" id="addIdentifierName@index" onclick="addIdentifierNameFormElements(@index);">Add preservation object name</button>
+<button type="button" id="addObjectName@index" onclick="addObjectNameFormElements(@index);">Add preservation object name</button>
 
 <button type="button" id="removeIdentifierButton@index" onclick="removeIdentifierFormElements(@index);">Remove identifier</button>
-
-@* ; *@
 
 <p />
 

@@ -1,20 +1,22 @@
-@(preservationObjectAuditLogForm: Form[org.opensirf.audit.PreservationObjectAuditLog], poal: org.opensirf.audit.PreservationObjectAuditLog)
+@(al: org.opensirf.obj.PreservationObjectAuditLog, index: Int = 0)
 
 @import org.opensirf.audit.PreservationObjectAuditLog
 
 @preservationObjectAuditLog = @{ if(poal == null) new PreservationObjectAuditLog() else poal } 
 
-<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">
-<link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+<div id="preservationObjectAuditLogDiv@index">
+	
+	objectAuditLog[@index].objectAuditLogReference.referenceType
+	<input type="text" name="objectAuditLog[@index].objectAuditLogReference.referenceType" value="@preservationObjectAuditLog.getObjectAuditLogReference().getReferenceType()"/>
+	            
+	objectAuditLog[@index].objectAuditLogReference.referenceRole
+	<input type="text" name="objectAuditLog[@index].objectAuditLogReference.referenceRole" value="@preservationObjectAuditLog.getObjectAuditLogReference().getReferenceRole()" />
+	
+	objectAuditLog[@index].objectAuditLogReference.referenceValue
+	<input type="text" name="objectAuditLog[@index].objectAuditLogReference.referenceValue" value="@preservationObjectAuditLog.getObjectAuditLogReference().getReferenceValue()" />
+	
+	<button type="button" id="removePreservationObjectAuditLogButton@index" onclick="removePreservationObjectAuditLogFormElements(@index);">Remove audit log</button>
+	
+	<p />
 
-@helper.form(action = routes.Application.addPreservationObjectAuditLog) {
-	<div id="preservationObjectAuditLogDiv">
-	<fieldSet>
-		<div id="auditLogReferenceDiv">
-			@auditLogReferenceTemplate(preservationObjectAuditLog.getObjectAuditLogReference())
-		</div>
-	</fieldSet>	
-	<br/>
-	<input type="submit" value="Submit"/>
-	</div>
-}
+</div>

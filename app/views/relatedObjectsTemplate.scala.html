@@ -1,0 +1,22 @@
+@(ro: org.opensirf.obj.RelatedObjects, index: Int = 0)
+
+@import org.opensirf.obj.RelatedObjects
+
+@relatedObj = @{ if(ro == null) new RelatedObjects() else ro }
+
+<div id="relatedObjectDiv@index">
+
+objectRelatedObjects[@index].objectRelatedObjectReference.referenceType
+<input type="text" name="objectRelatedObjects[@index].objectRelatedObjectReference.referenceType" value="@relatedObj.getObjectRelatedObjectReference().getReferenceType()"/>
+
+objectRelatedObjects[@index].objectRelatedObjectReference.referenceValue
+<input type="text" name="objectRelatedObjects[@index].objectRelatedObjectReference.referenceValue" value="@relatedObj.getObjectRelatedObjectReference().getReferenceValue()"/>
+
+objectRelatedObjects[@index].objectRelatedObjectReference.referenceRole
+<input type="text" name="objectRelatedObjects[@index].objectRelatedObjectReference.referenceRole" value="@relatedObj.getObjectRelatedObjectReference().getReferenceRole()"/>
+
+<button type="button" id="removeRelatedObjectButton@index" onclick="removeRelatedObjectFormElements(@index);">Remove related object reference</button>
+
+<p />
+
+</div>

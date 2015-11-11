@@ -21,16 +21,16 @@ function removeExtensionFormElements(arg1) {
 	} else { // called from button onClick() - extension pair loaded from object
 		extensionIndex = arg1;
 	}
-	extensionToRemove = "#extensionDiv" + extensionIndex;
+	extensionToRemove = '#extensionDiv' + extensionIndex;
 	$(extensionToRemove).remove();
 	renumberExtensions();
 }
 
 function addExtensionFormElements() {
-	var extensionDiv = $(document.createElement('div')).attr("id", 'extensionDiv' + extensionCounter);
-	var extensionPairsDiv = $(document.createElement('div')).attr("id", 'extensionPairsDiv' + extensionCounter);
-	var removeExtensionButton = $(document.createElement('button')).attr("id", 'removeExtensionButton' + extensionCounter).attr("type", "button").text('Remove extension');
-	var addExtensionPairButton = $(document.createElement('button')).attr("id", 'addPair' + extensionCounter).attr("type", "button").text('Add extension pair');
+	var extensionDiv = $(document.createElement('div')).attr('id', 'extensionDiv' + extensionCounter);
+	var extensionPairsDiv = $(document.createElement('div')).attr('id', 'extensionPairsDiv' + extensionCounter);
+	var removeExtensionButton = $(document.createElement('button')).attr('id', 'removeExtensionButton' + extensionCounter).attr("type", "button").text('Remove extension');
+	var addExtensionPairButton = $(document.createElement('button')).attr('id', 'addPair' + extensionCounter).attr("type", "button").text('Add extension pair');
 	removeExtensionButton.click({param1: extensionCounter}, removeExtensionFormElements);
 	addExtensionPairButton.click({param1: extensionCounter}, addExtensionPairFormElements);
 	extensionDiv.after().html(
@@ -40,7 +40,7 @@ function addExtensionFormElements() {
 	extensionDiv.append(extensionPairsDiv);
 	extensionDiv.append(addExtensionPairButton);
 	extensionDiv.append(removeExtensionButton);
-	$("#extensionsDiv").append(extensionDiv);
+	$('#extensionsDiv').append(extensionDiv);
 	epIndex[extensionCounter] = 0;
 	extensionCounter++;
 }

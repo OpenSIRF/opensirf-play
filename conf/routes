@@ -7,7 +7,7 @@ GET		/preservationObjectAuditLogUnitTest			@controllers.Application.preservation
 
 POST    /addPreservationObjectAuditLog				@controllers.Application.addPreservationObjectAuditLog()
 
-GET		/addPreservationObjectInformation			@controllers.Application.addPreservationObjectInformation()
+POST	/addPreservationObjectInformation			@controllers.Application.addPreservationObjectInformation()
 
 GET		/poiUnitTest								@controllers.Application.poiUnitTest()
 
