@@ -7,95 +7,114 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">
 <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
 
+<script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
+
 <script type="text/javascript">
 	var epIndex = [];
 	var onIndex = [];
 	var extensionCounter = @presObjInfo.getObjectExtension().size();
 	var relatedObjectCounter = @presObjInfo.getObjectRelatedObjects().size();
-	var auditLogCounter = @presObjInfo.getObjectAuditLog().size();
+	var preservationObjectAuditLogCounter = @presObjInfo.getObjectAuditLog().size();
 	var identifierCounter = @presObjInfo.getObjectIdentifiers().size();
 	var digestCounter = 0;
+	
+	function toggle(divName) {
+		divElement = '#' + divName;
+		divToggleButton = '#' + divName + 'ToggleBtn';		
+        $(divElement).toggle();
+        if($(divToggleButton).text() == '+ ') {
+        	$(divToggleButton).text('– ');
+        } else {
+        	$(divToggleButton).text('+ ');
+        }
+	}
 </script>
 
-<script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("javascripts/dynextp.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("javascripts/dynext.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("javascripts/dyndigi.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("javascripts/dynid.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("javascripts/dynobjname.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("javascripts/dynrelobj.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("javascripts/dynauditlog.js")" type="text/javascript"></script>
 
 @helper.form(action = routes.Application.addPreservationObjectInformation) {
-	<div id="preservationObjectInformationDiv">
+	<div class="po" id="preservationObjectInformationDiv">
 	<fieldSet>
+		<h3>Preservation Object</h3>
+		
 		@* Begin: Dates categories *@
-		@helper.inputText(poiForm("objectCreationDate").copy(value=Some(presObjInfo.getObjectCreationDate())))
-		@helper.inputText(poiForm("objectLastModifiedDate").copy(value=Some(presObjInfo.getObjectLastModifiedDate())))
-		@helper.inputText(poiForm("objectLastAccessedDate").copy(value=Some(presObjInfo.getObjectLastAccessedDate())))
+		<h4><a id="datesDivToggleBtn" onclick="toggle('datesDiv')" href="javascript:void(0);">– </a>Dates</h4>
+		<div class="category" id="datesDiv">
+		@datesTemplate(poi.getObjectCreationDate(), poi.getObjectLastModifiedDate(), poi.getObjectLastAccessedDate())
+		</div>
 		@* End: Dates categories *@
 		
 		@* Begin: Retention category *@
+		<h4><a id="rDivToggleBtn" onclick="toggle('rDiv')" href="javascript:void(0);">– </a>Retention</h4>
 		@retentionTemplate(poi.getObjectRetention())
 		@* End: Retention category *@
 		
 		@* Begin: Packaging format category *@
+		<h4><a id="pfDivToggleBtn" onclick="toggle('pfDiv')" href="javascript:void(0);">– </a>Packaging format</h4>
 		@packagingFormatTemplate(poi.getPackagingFormat())
 		@* End: Packaging format category *@
 		
 		@* Begin: Fixity information category *@
+		<h4><a id="fixityInformationDivToggleBtn" onclick="toggle('fixityInformationDiv')" href="javascript:void(0);">– </a>Fixity information</h4>
 		@fixityInformationTemplate(poi.getObjectFixity())
 		@* End: Fixity information category *@
 		
 		@* Begin: Extension category *@
-		<div id="extensionsDiv">
+		<h4><a id="extensionsDivToggleBtn" onclick="toggle('extensionsDiv')" href="javascript:void(0);">– </a>Extensions</h4>
+		<div class="category" id="extensionsDiv">
 			@if(poi.getObjectExtension().size() > 0) {
 				@for((e,eIndex) <- poi.getObjectExtension().zipWithIndex) {
 					@extensionTemplate(e,eIndex)
 				}
 			}
-		</div>
 		<button type="button" id="addExtension" onclick="addExtensionFormElements();">Add extension</button>
+		</div>
 		@* End: Extension category *@
 		
 		@* Begin: Identifier category *@
-		<div id="identifiersDiv">
+		<h4><a id="identifiersDivToggleBtn" onclick="toggle('identifiersDiv')" href="javascript:void(0);">– </a>Identifiers</h4>
+		<div class="category" id="identifiersDiv">
 			@if(poi.getObjectIdentifiers().size() > 0) {
 				@for((i,iIndex) <- poi.getObjectIdentifiers().zipWithIndex) {
 					@identifierTemplate(i,iIndex)
 				}
 			}
-		</div>
 		<button type="button" id="addIdentifier" onclick="addIdentifierFormElements();">Add preservation object identifier</button>
+		</div>
 		@* End: Identifier category *@
 		
 		@* Begin: Related objects category *@
-		<div id="relatedObjectsDiv">
+		<h4><a id="relatedObjectsDivToggleBtn" onclick="toggle('relatedObjectsDiv')" href="javascript:void(0);">– </a>Related objects</h4>
+		<div class="category" id="relatedObjectsDiv">
 			@if(poi.getObjectRelatedObjects().size() > 0) {
 				@for((ro,roIndex) <- poi.getObjectRelatedObjects().zipWithIndex) {
 					@relatedObjectsTemplate(ro,roIndex)
 				}
 			}
-		</div>
 		<button type="button" id="addRelatedObject" onclick="addRelatedObjectFormElements();">Add related object reference</button>
+		</div>
 		@* End: Related objects category *@
 		
 		@* Begin: Audit log category *@
-		<div id="auditLogsDiv">
+		<h4><a id="preservationObjectAuditLogsDivToggleBtn" onclick="toggle('preservationObjectAuditLogsDiv')" href="javascript:void(0);">– </a>PO audit logs</h4>
+		<div class="category" id="preservationObjectAuditLogsDiv">
 			@if(poi.getObjectAuditLog().size() > 0) {
 				@for((al,alIndex) <- poi.getObjectAuditLog().zipWithIndex) {
 					@preservationObjectAuditLogTemplate(al,alIndex)
 				}
 			}
-		@* End: Audit log category *@
+		<button type="button" id="addPreservationObjectAuditLog" onclick="addPreservationObjectAuditLogFormElements();">Add PO audit log</button>
 		</div>
-		<button type="button" id="addAuditLog" onclick="addAuditLogFormElements();">Add audit log</button>
+		@* End: Audit log category *@
 		
 	</fieldSet>	
 	<br/>
-	<input type="submit" value="Submit"/>
+	<input type="submit" value="Save preservation object"/>
 	</div>
 }
-
-@*
-	private ArrayList<PreservationObjectAuditLog> objectAuditLog;
-*@

@@ -6,40 +6,44 @@
 		
 @dynamicIdentifierJS(presObjId.getObjectNames().size(), index)
 
-<div id="identifierDiv@index">
+<h5>identifiers[@index]:</h5>
 
-objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierType
+<div class="subcategory1" id="identifierDiv@index">
+
+identifiers[@index].versionIdentifier.type
 <input type="text" name="objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierType" value="@presObjId.getObjectVersionIdentifier().getObjectIdentifierType()"/>
 
-objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierLocale
+identifiers[@index].versionIdentifier.locale
 <input type="text" name="objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierLocale" value="@presObjId.getObjectVersionIdentifier().getObjectIdentifierLocale()"/>
 
-objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierValue
+identifiers[@index].versionIdentifier.value
 <input type="text" name="objectIdentifiers[@index].objectVersionIdentifier.objectIdentifierValue" value="@presObjId.getObjectVersionIdentifier().getObjectIdentifierValue()"/>
 
 <br />
 	
-objectIdentifiers[@index].objectParentIdentifier.objectIdentifierType
+identifiers[@index].parentIdentifier .type
 <input type="text" name="objectIdentifiers[@index].objectParentIdentifier.objectIdentifierType" value="@presObjId.getObjectParentIdentifier().getObjectIdentifierType()"/>
 
-objectIdentifiers[@index].objectParentIdentifier.objectIdentifierLocale
+identifiers[@index].parentIdentifier .locale
 <input type="text" name="objectIdentifiers[@index].objectParentIdentifier.objectIdentifierLocale" value="@presObjId.getObjectParentIdentifier().getObjectIdentifierLocale()"/>
 
-objectIdentifiers[@index].objectParentIdentifier.objectIdentifierValue
+identifiers[@index].parentIdentifier .value
 <input type="text" name="objectIdentifiers[@index].objectParentIdentifier.objectIdentifierValue" value="@presObjId.getObjectParentIdentifier().getObjectIdentifierValue()"/>
 
 <br />
-	
-objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierType
+
+identifiers[@index].logicalIdentifier.type
 <input type="text" name="objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierType" value="@presObjId.getObjectLogicalIdentifier().getObjectIdentifierType()"/>
 
-objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierLocale
+identifiers[@index].logicalIdentifier.locale
 <input type="text" name="objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierLocale" value="@presObjId.getObjectLogicalIdentifier().getObjectIdentifierLocale()"/>
 
-objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierValue
+identifiers[@index].logicalIdentifier.value
 <input type="text" name="objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierValue" value="@presObjId.getObjectLogicalIdentifier().getObjectIdentifierValue()"/>
 
-<div id="objectNamesDiv@index">
+<h6>identifiers[@index].names:</h6>
+
+<div class="subcategory2" id="objectNamesDiv@index">
 	@if(presObjId.getObjectNames().size() > 0) {
 		@for((on,onIndex) <- presObjId.getObjectNames().zipWithIndex) {
 			@objectNameTemplate(on, onIndex, index)

@@ -4,13 +4,9 @@
 
 @packagingFormat = @{ if(pf == null) new PackagingFormat("") else pf } 
 
-<div id="pfDiv">
+<div class="category" id="pfDiv">
 
-<dl class=" " id="packagingFormat_field">
-
-<dt><label>packagingFormat.packagingFormatName</label></dt>
-<dd><input type="text" name="packagingFormat.packagingFormatName" value="@packagingFormat.getPackagingFormatName()"/></dd>
-
-</dl>
+packagingFormat.name
+<input type="text" name="packagingFormat.packagingFormatName" value="@packagingFormat.getPackagingFormatName()"/>
 
 </div>

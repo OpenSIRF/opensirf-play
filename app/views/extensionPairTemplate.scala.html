@@ -6,10 +6,10 @@
 
 <div id="epDiv@extensionIndex-@index.toString()">
 
-objectExtension[@extensionIndex].objectExtensionPairs[@index.toString()].objectExtensionKey
+extension[@extensionIndex].pairs[@index.toString()].key
 <input type="text" name="objectExtension[@extensionIndex].objectExtensionPairs[@index.toString()].objectExtensionKey" value="@extensionPair.getObjectExtensionKey()"/>
 
-objectExtension[@extensionIndex].objectExtensionPairs[@index.toString()].objectExtensionValue
+extension[@extensionIndex].pairs[@index.toString()].value
 <input type="text" name="objectExtension[@extensionIndex].objectExtensionPairs[@index.toString()].objectExtensionValue" value="@extensionPair.getObjectExtensionValue()" />
 
 <button type="button" id="removeExtensionPairButton@extensionIndex.toString.@index.toString()" onclick="removeExtensionPairFormElements(@extensionIndex, @index);">Remove</button>

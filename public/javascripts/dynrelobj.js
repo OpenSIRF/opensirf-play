@@ -29,13 +29,14 @@ function removeRelatedObjectFormElements(arg1) {
 
 function addRelatedObjectFormElements() {
 	var relatedObjectDiv = $(document.createElement('div')).attr('id', 'relatedObjectDiv' + relatedObjectCounter);
-	var removeRelatedObjectButton = $(document.createElement('button')).attr('id', 'removeRelatedObjectButton' + relatedObjectCounter).attr('type', 'button').text('Remove related object reference');
+	var removeRelatedObjectButton = $(document.createElement('button')).attr('id', 'removeRelatedObjectButton' + relatedObjectCounter).attr('type', 'button').text('Remove related object');
 	removeRelatedObjectButton.click({param1: relatedObjectCounter}, removeRelatedObjectFormElements);
 	relatedObjectDiv.after().html(
-			'objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceType <input type="text" name="objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceType" />' +
-			'objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceRole <input type="text" name="objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceRole" />' +
-			'objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceValue <input type="text" name="objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceValue" />');
+			'relatedObjects[' + relatedObjectCounter + '].reference.type <input type="text" name="objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceType" />' +
+			'relatedObjects[' + relatedObjectCounter + '].reference.role <input type="text" name="objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceRole" />' +
+			'relatedObjects[' + relatedObjectCounter + '].reference.value <input type="text" name="objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceValue" />');
 	relatedObjectDiv.append(removeRelatedObjectButton);
-	$("#relatedObjectsDiv").append(relatedObjectDiv);
+	//$("#relatedObjectsDiv").append(relatedObjectDiv);
+	relatedObjectDiv.insertBefore('#addRelatedObject');
 	relatedObjectCounter++;
 }

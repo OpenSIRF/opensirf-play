@@ -34,13 +34,13 @@ function addExtensionFormElements() {
 	removeExtensionButton.click({param1: extensionCounter}, removeExtensionFormElements);
 	addExtensionPairButton.click({param1: extensionCounter}, addExtensionPairFormElements);
 	extensionDiv.after().html(
-			'objectExtension[' + extensionCounter + '].objectExtensionOrganization <input type="text" name="objectExtension[' + extensionCounter + '].objectExtensionOrganization" />' +
-			' objectExtension[' + extensionCounter + '].objectExtensionDescription <input type="text" name="objectExtension[' + extensionCounter + '].objectExtensionDescription" />' +
+			'extension[' + extensionCounter + '].organization <input type="text" name="objectExtension[' + extensionCounter + '].objectExtensionOrganization" />' +
+			' extension[' + extensionCounter + '].description <input type="text" name="objectExtension[' + extensionCounter + '].objectExtensionDescription" />' +
 			'<br />');
 	extensionDiv.append(extensionPairsDiv);
 	extensionDiv.append(addExtensionPairButton);
 	extensionDiv.append(removeExtensionButton);
-	$('#extensionsDiv').append(extensionDiv);
+	extensionDiv.insertBefore('#addExtension');
 	epIndex[extensionCounter] = 0;
 	extensionCounter++;
 }

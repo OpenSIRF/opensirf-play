@@ -4,21 +4,17 @@
 
 @digestInformation = @{ if(digI == null) new DigestInformation("", "", "") else digI } 
 
-<div id="diDiv@index.toString()">
+<div class="subcategory" id="diDiv@index.toString()">
 
-<dl class=" " id="objectFixity_digestInformation_field">
-
-objectFixity.digestOriginator
+digestInfo[@index.toString()].digestOriginator
 <input type="text" name="objectFixity.digestInformation[@index.toString()].digestOriginator" value="@digestInformation.getDigestOriginator()"/>
             
-objectFixity.digestAlgorithm
+digestInfo[@index.toString()].digestAlgorithm
 <input type="text" name="objectFixity.digestInformation[@index.toString()].digestAlgorithm" value="@digestInformation.getDigestAlgorithm()" />
 
-objectFixity.digestValue
+digestInfo[@index.toString()].digestValue
 <input type="text" name="objectFixity.digestInformation[@index.toString()].digestValue" value="@digestInformation.getDigestValue()" />
 
 <button type="button" id="removeDigestInformationButton@index.toString()" onclick="removeDigestInformationFormElements(@index.toString())">Remove</button>
-
-</dl>
 
 </div>

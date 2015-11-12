@@ -16,9 +16,9 @@ function addDigestInformationFormElements() {
 	 	text('Remove');
 	removeDigestInformationButton.click({param1: digestCounter}, removeDigestInformationFormElements);
 	digestInformationDiv.after().html(
-			'objectFixity.digestOriginator <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestOriginator" />' +
-			' objectFixity.digestAlgorithm <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestAlgorithm" />' +
-			' objectFixity.digestValue <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestValue" />');
+			'digestInfo['+ digestCounter + '].digestOriginator <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestOriginator" /> ' +
+			'digestInfo['+ digestCounter + '].digestAlgorithm <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestAlgorithm" /> ' +
+			'digestInfo['+ digestCounter + '].digestValue <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestValue" /> ');
 	digestInformationDiv.append(removeDigestInformationButton);
 	$("#digestInformationDiv").append(digestInformationDiv);
 	digestCounter++;

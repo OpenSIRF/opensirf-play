@@ -1,0 +1,14 @@
+@(dc: String, dm: String, da: String)
+
+@dateCreated = @{ if(dc == null) new String() else dc } 
+@dateModified = @{ if(dm == null) new String() else dm } 
+@dateAccessed = @{ if(da == null) new String() else da } 
+
+creationDate
+<input type="text" id="objectCreationDate" name="objectCreationDate" value="@dateCreated" />    
+
+lastModifiedDate
+<input type="text" id="objectLastModifiedDate" name="objectLastModifiedDate" value="@dateModified" />
+    
+lastAccessedDate
+<input type="text" id="objectLastAccessedDate" name="objectLastAccessedDate" value="@dateAccessed" />

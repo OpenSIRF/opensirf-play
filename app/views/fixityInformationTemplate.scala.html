@@ -6,13 +6,12 @@
 
 @dynamicFixityInformationJS(fixityInformation.getDigestInformation().size())
 
-<div id="fixityInformationDiv">
+<div class="category" id="fixityInformationDiv">
 
 <dl class=" " id="objectFixity_field">
 
-	<dt><label>objectFixity.lastCheckDate</label></dt>
-	<dd><input type="text" name="objectFixity.lastCheckDate" value="@fixityInformation.getLastCheckDate()"/></dd>
-	
+	fixity.lastCheckDate
+	<input type="text" name="objectFixity.lastCheckDate" value="@fixityInformation.getLastCheckDate()"/>
 	<div id="digestInformationDiv">
 		@if(fixityInformation.getDigestInformation().size() > 0) {
 			@for((di,diIndex) <- fixityInformation.getDigestInformation().zipWithIndex) {

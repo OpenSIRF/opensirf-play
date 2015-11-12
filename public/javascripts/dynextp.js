@@ -34,8 +34,8 @@ function addExtensionPairFormElements(arg) {
 	var removeExtensionPairButton = $(document.createElement('button')).attr("id", 'removeExtensionPairButton' + extIndex + '.'+ epIndex[extIndex]).text('Remove');
 	removeExtensionPairButton.click({param1: extIndex, param2: epIndex[extIndex]}, removeExtensionPairFormElements);
 	extensionPairDiv.after().html(
-			'objectExtension[' + extIndex + '].objectExtensionPairs['+ epIndex[extIndex] + '].objectExtensionKey <input type="text" name="objectExtension[' + extIndex + '].objectExtensionPairs['+ epIndex[extIndex] + '].objectExtensionKey" />' +
-			' objectExtension[' + extIndex + '].objectExtensionPairs['+ epIndex[extIndex] + '].objectExtensionValue <input type="text" name="objectExtension[' + extIndex + '].objectExtensionPairs['+ epIndex[extIndex] + '].objectExtensionValue" />');
+			'extension[' + extIndex + '].pairs['+ epIndex[extIndex] + '].key <input type="text" name="objectExtension[' + extIndex + '].objectExtensionPairs['+ epIndex[extIndex] + '].objectExtensionKey" />' +
+			' extension[' + extIndex + '].pairs['+ epIndex[extIndex] + '].value <input type="text" name="objectExtension[' + extIndex + '].objectExtensionPairs['+ epIndex[extIndex] + '].objectExtensionValue" />');
 	extensionPairDiv.append(removeExtensionPairButton);
 	$("#extensionPairsDiv" + extIndex).append(extensionPairDiv);
 	epIndex[extIndex]++;

@@ -28,29 +28,30 @@ function removeIdentifierFormElements(arg1) {
 }
 
 function addIdentifierFormElements() {
-	var identifierDiv = $(document.createElement('div')).attr("id", 'identifierDiv' + identifierCounter);
-	var objectNamesDiv = $(document.createElement('div')).attr("id", 'objectNamesDiv' + identifierCounter);
-	var removeIdentifierButton = $(document.createElement('button')).attr("id", 'removeIdentifierButton' + identifierCounter).attr("type", "button").text('Remove identifier');
-	var addObjectNameButton = $(document.createElement('button')).attr("id", 'addObjectName' + identifierCounter).attr("type", "button").text('Add preservation object name');
+	var identifierDiv = $(document.createElement('div')).attr('id', 'identifierDiv' + identifierCounter).attr('class', 'subcategory1');
+	var objectNamesDiv = $(document.createElement('div')).attr('id', 'objectNamesDiv' + identifierCounter).attr('class', 'subcategory2');
+	var removeIdentifierButton = $(document.createElement('button')).attr('id', 'removeIdentifierButton' + identifierCounter).attr('type', 'button').text('Remove identifier');
+	var addObjectNameButton = $(document.createElement('button')).attr('id', 'addObjectName' + identifierCounter).attr('type', 'button').text('Add preservation object name');
 	removeIdentifierButton.click({param1: identifierCounter}, removeIdentifierFormElements);
 	addObjectNameButton.click({param1: identifierCounter}, addObjectNameFormElements);
 	identifierDiv.after().html(
-			'objectIdentifiers[' + identifierCounter + '].objectVersionIdentifier.objectIdentifierType <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectVersionIdentifier.objectIdentifierType" />' +
-			'objectIdentifiers[' + identifierCounter + '].objectVersionIdentifier.objectIdentifierLocale <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectVersionIdentifier.objectIdentifierLocale" />' +
-			'objectIdentifiers[' + identifierCounter + '].objectVersionIdentifier.objectIdentifierValue <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectVersionIdentifier.objectIdentifierValue" />' +
-			'<br />' + 			
-			'objectIdentifiers[' + identifierCounter + '].objectParentIdentifier.objectIdentifierType <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectParentIdentifier.objectIdentifierType" />' +
-			'objectIdentifiers[' + identifierCounter + '].objectParentIdentifier.objectIdentifierLocale <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectParentIdentifier.objectIdentifierLocale" />' +
-			'objectIdentifiers[' + identifierCounter + '].objectParentIdentifier.objectIdentifierValue <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectParentIdentifier.objectIdentifierValue" />' +
-			'<br />' + 			
-			'objectIdentifiers[' + identifierCounter + '].objectLogicalIdentifier.objectIdentifierType <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectLogicalIdentifier.objectIdentifierType" />' +
-			'objectIdentifiers[' + identifierCounter + '].objectLogicalIdentifier.objectIdentifierLocale <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectLogicalIdentifier.objectIdentifierLocale" />' +
-			'objectIdentifiers[' + identifierCounter + '].objectLogicalIdentifier.objectIdentifierValue <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectLogicalIdentifier.objectIdentifierValue" />' +
-			'<br />');
+			'<h5>identifiers[' + identifierCounter + ']:</h5>' +
+			'identifiers[' + identifierCounter + '].versionIdentifier.type <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectVersionIdentifier.objectIdentifierType" /> ' +
+			'identifiers[' + identifierCounter + '].versionIdentifier.locale <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectVersionIdentifier.objectIdentifierLocale" /> ' +
+			'identifiers[' + identifierCounter + '].versionIdentifier.value <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectVersionIdentifier.objectIdentifierValue" /> ' +
+			'<br /> ' + 			
+			'identifiers[' + identifierCounter + '].parentIdentifier .type <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectParentIdentifier.objectIdentifierType" /> ' +
+			'identifiers[' + identifierCounter + '].parentIdentifier .locale <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectParentIdentifier.objectIdentifierLocale" /> ' +
+			'identifiers[' + identifierCounter + '].parentIdentifier .value <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectParentIdentifier.objectIdentifierValue" /> ' +
+			'<br /> ' + 			
+			'identifiers[' + identifierCounter + '].logicalIdentifier.type <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectLogicalIdentifier.objectIdentifierType" /> ' +
+			'identifiers[' + identifierCounter + '].logicalIdentifier.locale <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectLogicalIdentifier.objectIdentifierLocale" /> ' +
+			'identifiers[' + identifierCounter + '].logicalIdentifier.value <input type="text" name="objectIdentifiers[' + identifierCounter + '].objectLogicalIdentifier.objectIdentifierValue" /> ' +
+			'<br /> ');
 	identifierDiv.append(objectNamesDiv);
 	identifierDiv.append(addObjectNameButton);
 	identifierDiv.append(removeIdentifierButton);
-	$("#identifiersDiv").append(identifierDiv);
+	identifierDiv.insertBefore('#addIdentifier');
 	onIndex[identifierCounter] = 0;
 	identifierCounter++;
 }

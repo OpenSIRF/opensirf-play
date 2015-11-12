@@ -33,11 +33,14 @@ function addObjectNameFormElements(arg) {
 	var objectNameDiv = $(document.createElement('div')).attr('id', 'onDiv' + idIndex + "-" + onIndex[idIndex]);
 	var removeObjectNameButton = $(document.createElement('button')).attr('id', 'removeObjectNameButton' + idIndex + '.'+ onIndex[idIndex]).text('Remove');
 	removeObjectNameButton.click({param1: idIndex, param2: onIndex[idIndex]}, removeObjectNameFormElements);
-	objectNameDiv.after().html(			
-			'objectIdentifiers[' + idIndex + '].objectNames['+ onIndex[idIndex] + '].objectIdentifierType <input type="text" name="objectIdentifiers[' + idIndex + '].objectNames['+ onIndex[idIndex] + '].objectIdentifierType" />' +
-			'objectIdentifiers[' + idIndex + '].objectNames['+ onIndex[idIndex] + '].objectIdentifierLocale <input type="text" name="objectIdentifiers[' + idIndex + '].objectNames['+ onIndex[idIndex] + '].objectIdentifierLocale" />' +
-			'objectIdentifiers[' + idIndex + '].objectNames['+ onIndex[idIndex] + '].objectIdentifierValue <input type="text" name="objectIdentifiers[' + idIndex + '].objectNames['+ onIndex[idIndex] + '].objectIdentifierValue" />');
+	objectNameDiv.after().html(
+			'identifiers[' + idIndex + '].names['+ onIndex[idIndex] + '].type <input type="text" name="objectIdentifiers[' + idIndex + '].objectNames['+ onIndex[idIndex] + '].objectIdentifierType" /> ' +
+			'identifiers[' + idIndex + '].names['+ onIndex[idIndex] + '].locale <input type="text" name="objectIdentifiers[' + idIndex + '].objectNames['+ onIndex[idIndex] + '].objectIdentifierLocale" /> ' +
+			'identifiers[' + idIndex + '].names['+ onIndex[idIndex] + '].value <input type="text" name="objectIdentifiers[' + idIndex + '].objectNames['+ onIndex[idIndex] + '].objectIdentifierValue" /> ');
 	objectNameDiv.append(removeObjectNameButton);
+	if(onIndex[idIndex] == 0) {
+		$('#objectNamesDiv' + idIndex).append('<h6>identifiers[' + idIndex + '].names:</h6>');
+	}
 	$('#objectNamesDiv' + idIndex).append(objectNameDiv);
 	onIndex[idIndex]++;
 }

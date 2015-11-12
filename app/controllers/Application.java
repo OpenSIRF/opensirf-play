@@ -29,9 +29,7 @@ public class Application extends Controller {
 
 	public Result addPreservationObjectInformation() {
 		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(PreservationObjectInformation.class).bindFromRequest();
-				
 		PreservationObjectInformation poi = formPreservationObjectInformation.get();
-		
 		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
 	}
 	
@@ -74,31 +72,20 @@ public class Application extends Controller {
 		poid.putObjectName(new PreservationObjectName("nameType4", "nameLocale4", "nameValue4"));
 		poid.putObjectName(new PreservationObjectName("nameType5", "nameLocale5", "nameValue5"));
 		poi.addObjectIdentifier(poid);
-		
+
 		ArrayList<RelatedObjects> relatedObjects = new ArrayList<RelatedObjects>();
 		RelatedObjects relatedObject = new RelatedObjects();
 		relatedObject.setObjectRelatedObjectReference(new RelatedObjectReference("type", "role", "value"));
 		relatedObjects.add(relatedObject);
 		poi.setObjectRelatedObjects(relatedObjects);
 		
+		ArrayList<PreservationObjectAuditLog> auditLogs = new ArrayList<PreservationObjectAuditLog>();
+		PreservationObjectAuditLog auditLog = new PreservationObjectAuditLog();
+		auditLog.setObjectAuditLogReference(new AuditLogReference("type", "role", "value"));
+		auditLogs.add(auditLog);
+		poi.setObjectAuditLog(auditLogs);
+		
 		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
 	}
 	
-	public Result addPreservationObjectAuditLog() {
-		Form<PreservationObjectAuditLog> formPreservationObjectAuditLog = Form.form(PreservationObjectAuditLog.class).bindFromRequest();
-		PreservationObjectAuditLog poal = formPreservationObjectAuditLog.get();
-		return ok(preservationObjectAuditLogTemplate.render(Form.form(PreservationObjectAuditLog.class), poal));
-	}
-	
-	public Result preservationObjectAuditLogForm() {
-		return ok(preservationObjectAuditLogTemplate.render(Form.form(PreservationObjectAuditLog.class), null));
-	}
-	
-	public Result preservationObjectAuditLogUnitTest() {
-		PreservationObjectAuditLog poal = new PreservationObjectAuditLog();
-
-		poal.setObjectAuditLogReference(new AuditLogReference("type", "role", "value"));
-
-		return ok(preservationObjectAuditLogTemplate.render(Form.form(PreservationObjectAuditLog.class), poal));
-	}
 }

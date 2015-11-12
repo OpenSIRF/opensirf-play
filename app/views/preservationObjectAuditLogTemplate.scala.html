@@ -1,4 +1,4 @@
-@(al: org.opensirf.obj.PreservationObjectAuditLog, index: Int = 0)
+@(poal: org.opensirf.audit.PreservationObjectAuditLog, index: Int = 0)
 
 @import org.opensirf.audit.PreservationObjectAuditLog
 
@@ -6,16 +6,16 @@
 
 <div id="preservationObjectAuditLogDiv@index">
 	
-	objectAuditLog[@index].objectAuditLogReference.referenceType
+	auditLog[@index].reference.type
 	<input type="text" name="objectAuditLog[@index].objectAuditLogReference.referenceType" value="@preservationObjectAuditLog.getObjectAuditLogReference().getReferenceType()"/>
 	            
-	objectAuditLog[@index].objectAuditLogReference.referenceRole
+	auditLog[@index].reference.role
 	<input type="text" name="objectAuditLog[@index].objectAuditLogReference.referenceRole" value="@preservationObjectAuditLog.getObjectAuditLogReference().getReferenceRole()" />
 	
-	objectAuditLog[@index].objectAuditLogReference.referenceValue
+	auditLog[@index].reference.value
 	<input type="text" name="objectAuditLog[@index].objectAuditLogReference.referenceValue" value="@preservationObjectAuditLog.getObjectAuditLogReference().getReferenceValue()" />
 	
-	<button type="button" id="removePreservationObjectAuditLogButton@index" onclick="removePreservationObjectAuditLogFormElements(@index);">Remove audit log</button>
+	<button type="button" id="removePreservationObjectAuditLogButton@index" onclick="removePreservationObjectAuditLogFormElements(@index);">Remove PO audit log</button>
 	
 	<p />
 

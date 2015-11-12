@@ -6,16 +6,16 @@
 
 <div id="relatedObjectDiv@index">
 
-objectRelatedObjects[@index].objectRelatedObjectReference.referenceType
+relatedObjects[@index].reference.type
 <input type="text" name="objectRelatedObjects[@index].objectRelatedObjectReference.referenceType" value="@relatedObj.getObjectRelatedObjectReference().getReferenceType()"/>
 
-objectRelatedObjects[@index].objectRelatedObjectReference.referenceValue
-<input type="text" name="objectRelatedObjects[@index].objectRelatedObjectReference.referenceValue" value="@relatedObj.getObjectRelatedObjectReference().getReferenceValue()"/>
-
-objectRelatedObjects[@index].objectRelatedObjectReference.referenceRole
+relatedObjects[@index].reference.role
 <input type="text" name="objectRelatedObjects[@index].objectRelatedObjectReference.referenceRole" value="@relatedObj.getObjectRelatedObjectReference().getReferenceRole()"/>
 
-<button type="button" id="removeRelatedObjectButton@index" onclick="removeRelatedObjectFormElements(@index);">Remove related object reference</button>
+relatedObjects[@index].reference.value
+<input type="text" name="objectRelatedObjects[@index].objectRelatedObjectReference.referenceValue" value="@relatedObj.getObjectRelatedObjectReference().getReferenceValue()"/>
+
+<button type="button" id="removeRelatedObjectButton@index" onclick="removeRelatedObjectFormElements(@index);">Remove related object</button>
 
 <p />
 

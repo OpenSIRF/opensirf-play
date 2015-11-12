@@ -4,16 +4,12 @@
 
 @retention = @{ if(r == null) new Retention("","") else r } 
 
-<div id="rDiv">
+<div class="category" id="rDiv">
 
-<dl class=" " id="objectRetention_field">
-
-<dt><label>objectRetention.retentionType:</label></dt>
-<dd><input type="text" name="objectRetention.retentionType" value="@retention.getRetentionType()"/></dd>
+retention.type
+<input type="text" name="objectRetention.retentionType" value="@retention.getRetentionType()"/>
             
-<dt><label>objectRetention.retentionValue:</label></dt>
-<dd><input type="text" name="objectRetention.retentionValue" value="@retention.getRetentionValue()" /></dd>
-
-</dl>
+retention.value
+<input type="text" name="objectRetention.retentionValue" value="@retention.getRetentionValue()" />
 
 </div>

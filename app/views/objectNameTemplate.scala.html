@@ -6,13 +6,13 @@
 
 <div id="onDiv@identifierIndex-@nameIndex">
 
-objectIdentifiers[@identifierIndex].objectNames[@nameIndex.toString()].objectIdentifierType
+identifiers[@identifierIndex].names[@nameIndex.toString()].type
 <input type="text" name="objectIdentifiers[@identifierIndex].objectNames[@nameIndex.toString()].objectIdentifierType" value="@objectName.getObjectIdentifierType()"/>
 
-objectIdentifiers[@identifierIndex].objectNames[@nameIndex.toString()].objectIdentifierLocale
+identifiers[@identifierIndex].names[@nameIndex.toString()].locale
 <input type="text" name="objectIdentifiers[@identifierIndex].objectNames[@nameIndex.toString()].objectIdentifierLocale" value="@objectName.getObjectIdentifierLocale()"/>
 
-objectIdentifiers[@identifierIndex].objectNames[@nameIndex.toString()].objectIdentifierValue
+identifiers[@identifierIndex].names[@nameIndex.toString()].value
 <input type="text" name="objectIdentifiers[@identifierIndex].objectNames[@nameIndex.toString()].objectIdentifierValue" value="@objectName.getObjectIdentifierValue()"/>
 
 <button type="button" id="removeObjectNameButton@identifierIndex.toString()-@nameIndex.toString()" onclick="removeObjectNameFormElements(@identifierIndex, @nameIndex);">Remove</button>
