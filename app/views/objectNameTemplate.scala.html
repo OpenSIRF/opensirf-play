@@ -1,8 +1,5 @@
-@(pon: org.opensirf.obj.PreservationObjectName, nameIndex: Int = 0, identifierIndex: Int)
-
-@import org.opensirf.obj.PreservationObjectName
-
-@objectName = @{ if(pon == null) new PreservationObjectName() else pon }
+@(pon: org.opensirf.obj.PreservationObjectName, identifierIndex: Int, nameIndex: Int = 0)
+@objectName = @{ if(pon == null) new org.opensirf.obj.PreservationObjectName() else pon }
 
 <div id="onDiv@identifierIndex-@nameIndex">
 

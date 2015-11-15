@@ -149,11 +149,15 @@ h5 { font-size: 1.1rem; line-height: 1.6;  letter-spacing: 0; }
   h2 { font-size: 3.6rem; }
   h3 { font-size: 2.4rem; font-weight: bold; }
   h4 { font-size: 2.2rem; }
-  h5 { font-size: 1.8rem; font-weight: bold; font-family: Courier New, monospace; }
+  h5 {
+  	font-size: 1.8rem; 
+  	font-weight: bold; 
+  	font-family: Courier New, monospace; }
   h6 {
     font-size: 1.5rem;
     font-weight: bold;
     font-family: Courier New, monospace;
+    padding-left: -25px; 
     margin-top: 2rem;
     margin-bottom: 1rem }
 }
@@ -432,11 +436,11 @@ there.
 div.category {
   margin-left: 20px;
   margin-right: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   margin-top: -10px;
-  padding-left: 20px; 
-  padding-top: 20px; 
-  padding-bottom: 10px; 
+  padding-left: 25px; 
+  padding-top: 25px; 
+  padding-bottom: 30px; 
   padding-right: 10px; 
   border: 1px solid;
   border-color: gray; }

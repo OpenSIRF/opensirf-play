@@ -1,8 +1,5 @@
 @(poal: org.opensirf.audit.PreservationObjectAuditLog, index: Int = 0)
-
-@import org.opensirf.audit.PreservationObjectAuditLog
-
-@preservationObjectAuditLog = @{ if(poal == null) new PreservationObjectAuditLog() else poal } 
+@preservationObjectAuditLog = @{ if(poal == null) new org.opensirf.audit.PreservationObjectAuditLog() else poal } 
 
 <div id="preservationObjectAuditLogDiv@index">
 	

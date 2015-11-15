@@ -28,7 +28,7 @@ function removeIdentifierFormElements(arg1) {
 }
 
 function addIdentifierFormElements() {
-	var identifierDiv = $(document.createElement('div')).attr('id', 'identifierDiv' + identifierCounter).attr('class', 'subcategory1');
+	/*var identifierDiv = $(document.createElement('div')).attr('id', 'identifierDiv' + identifierCounter).attr('class', 'subcategory1');
 	var objectNamesDiv = $(document.createElement('div')).attr('id', 'objectNamesDiv' + identifierCounter).attr('class', 'subcategory2');
 	var removeIdentifierButton = $(document.createElement('button')).attr('id', 'removeIdentifierButton' + identifierCounter).attr('type', 'button').text('Remove identifier');
 	var addObjectNameButton = $(document.createElement('button')).attr('id', 'addObjectName' + identifierCounter).attr('type', 'button').text('Add preservation object name');
@@ -51,7 +51,8 @@ function addIdentifierFormElements() {
 	identifierDiv.append(objectNamesDiv);
 	identifierDiv.append(addObjectNameButton);
 	identifierDiv.append(removeIdentifierButton);
-	identifierDiv.insertBefore('#addIdentifier');
+	identifierDiv.insertBefore('#addIdentifier');*/
+	addDynamicFormElements('Identifier', identifierCounter, -1);
 	onIndex[identifierCounter] = 0;
 	identifierCounter++;
 }

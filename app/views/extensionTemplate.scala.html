@@ -14,15 +14,15 @@
 	extension[@index].description
 	<input type="text" name="objectExtension[@index].objectExtensionDescription" value="@extension.getObjectExtensionDescription()"/>
 	
-	<div id="extensionPairsDiv@index">
+	<div class="subcategory2" id="divExtensionPair@index">
 		@if(extension.getObjectExtensionPairs().size() > 0) {
 			@for((ep,epIndex) <- extension.getObjectExtensionPairs().zipWithIndex) {
-				@extensionPairTemplate(ep, epIndex, index)
+				@extensionPairTemplate(ep, index, epIndex)
 			}
 		}
 	</div>
 
-<button type="button" id="addPair@index" onclick="addExtensionPairFormElements(@index);">Add extension pair</button>
+<button type="button" id="addExtensionPair@index" onclick="addExtensionPairFormElements(@index);">Add extension pair</button>
 
 <button type="button" id="removeExtensionButton@index" onclick="removeExtensionFormElements(@index);">Remove extension</button>
 

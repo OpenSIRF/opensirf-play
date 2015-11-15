@@ -1,8 +1,5 @@
 @(poid: org.opensirf.obj.PreservationObjectIdentifier, index: Int = 0)
-
-@import org.opensirf.obj.PreservationObjectIdentifier
-
-@presObjId = @{ if(poid == null) new PreservationObjectIdentifier() else poid }
+@presObjId = @{ if(poid == null) new org.opensirf.obj.PreservationObjectIdentifier() else poid }
 		
 @dynamicIdentifierJS(presObjId.getObjectNames().size(), index)
 
@@ -41,12 +38,10 @@ identifiers[@index].logicalIdentifier.locale
 identifiers[@index].logicalIdentifier.value
 <input type="text" name="objectIdentifiers[@index].objectLogicalIdentifier.objectIdentifierValue" value="@presObjId.getObjectLogicalIdentifier().getObjectIdentifierValue()"/>
 
-<h6>identifiers[@index].names:</h6>
-
-<div class="subcategory2" id="objectNamesDiv@index">
+<div class="subcategory2" id="divObjectName@index">
 	@if(presObjId.getObjectNames().size() > 0) {
 		@for((on,onIndex) <- presObjId.getObjectNames().zipWithIndex) {
-			@objectNameTemplate(on, onIndex, index)
+			@objectNameTemplate(on, index, onIndex)
 		}
 	}
 </div>

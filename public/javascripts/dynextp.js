@@ -23,6 +23,7 @@ function removeExtensionPairFormElements(arg1, arg2) {
 	renumberExtensionPairs(extensionIndex);
 }
 
+
 function addExtensionPairFormElements(arg) {
 	if(arg.data != null) { // called from an event - dynamically added extension
 		extIndex = arg.data.param1;
@@ -30,13 +31,15 @@ function addExtensionPairFormElements(arg) {
 		extIndex = arg;
 	}
 	
-	var extensionPairDiv = $(document.createElement('div')).attr("id", 'epDiv' + extIndex + "-" + epIndex[extIndex]);
+	/*var extensionPairDiv = $(document.createElement('div')).attr("id", 'epDiv' + extIndex + "-" + epIndex[extIndex]);
 	var removeExtensionPairButton = $(document.createElement('button')).attr("id", 'removeExtensionPairButton' + extIndex + '.'+ epIndex[extIndex]).text('Remove');
 	removeExtensionPairButton.click({param1: extIndex, param2: epIndex[extIndex]}, removeExtensionPairFormElements);
 	extensionPairDiv.after().html(
 			'extension[' + extIndex + '].pairs['+ epIndex[extIndex] + '].key <input type="text" name="objectExtension[' + extIndex + '].objectExtensionPairs['+ epIndex[extIndex] + '].objectExtensionKey" />' +
 			' extension[' + extIndex + '].pairs['+ epIndex[extIndex] + '].value <input type="text" name="objectExtension[' + extIndex + '].objectExtensionPairs['+ epIndex[extIndex] + '].objectExtensionValue" />');
 	extensionPairDiv.append(removeExtensionPairButton);
-	$("#extensionPairsDiv" + extIndex).append(extensionPairDiv);
+	$("#extensionPairsDiv" + extIndex).append(extensionPairDiv);*/
+
+	addDynamicFormElements('ExtensionPair', extIndex, epIndex[extIndex]);
 	epIndex[extIndex]++;
 }

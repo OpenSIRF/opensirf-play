@@ -28,7 +28,7 @@ function removePreservationObjectAuditLogFormElements(arg1) {
 }
 
 function addPreservationObjectAuditLogFormElements() {
-	var preservationObjectAuditLogDiv = $(document.createElement('div')).attr('id', 'preservationObjectAuditLogDiv' + preservationObjectAuditLogCounter);
+	/*var preservationObjectAuditLogDiv = $(document.createElement('div')).attr('id', 'preservationObjectAuditLogDiv' + preservationObjectAuditLogCounter);
 	var removePreservationObjectAuditLogButton = $(document.createElement('button')).attr('id', 'removePreservationObjectAuditLogButton' + preservationObjectAuditLogCounter).attr('type', 'button').text('Remove PO audit log');
 	removePreservationObjectAuditLogButton.click({param1: preservationObjectAuditLogCounter}, removePreservationObjectAuditLogFormElements);
 	preservationObjectAuditLogDiv.after().html(
@@ -36,6 +36,7 @@ function addPreservationObjectAuditLogFormElements() {
 			'auditLog[' + preservationObjectAuditLogCounter + '].reference.role <input type="text" name="objectAuditLog[' + preservationObjectAuditLogCounter + '].objectAuditLogReference.referenceRole" />' +
 			'auditLog[' + preservationObjectAuditLogCounter + '].reference.value <input type="text" name="objectAuditLog[' + preservationObjectAuditLogCounter + '].objectAuditLogReference.referenceValue" />');
 	preservationObjectAuditLogDiv.append(removePreservationObjectAuditLogButton);
-	preservationObjectAuditLogDiv.insertBefore('#addPreservationObjectAuditLog');
+	preservationObjectAuditLogDiv.insertBefore('#addPreservationObjectAuditLog');*/
+	addDynamicFormElements('PreservationObjectAuditLog', preservationObjectAuditLogCounter, -1);
 	preservationObjectAuditLogCounter++;
 }

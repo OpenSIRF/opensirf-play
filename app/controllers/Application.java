@@ -23,10 +23,38 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.preservationObjectAuditLogTemplate;
+import views.html.extensionPairTemplate;
+import views.html.extensionTemplate;
+import views.html.digestInformationTemplate;
+import views.html.objectNameTemplate;
+import views.html.identifierTemplate;
+import views.html.relatedObjectsTemplate;
 import views.html.preservationObjectInformationTemplate;
 
 public class Application extends Controller {
 
+	public Result dynamicFormElements(String category, int index, int subIndex) {
+		System.out.println("" + category + " " + index + " " + subIndex);
+		switch(category) {
+		case "Extension":
+			return ok(extensionTemplate.render(null, index));
+		case "ExtensionPair":
+			return ok(extensionPairTemplate.render(null, index, subIndex));
+		case "DigestInformation":
+			return ok(digestInformationTemplate.render(null, index));
+		case "Identifier":
+			return ok(identifierTemplate.render(null, index));
+		case "ObjectName":
+			return ok(objectNameTemplate.render(null, index, subIndex));
+		case "RelatedObjects":
+			return ok(relatedObjectsTemplate.render(null, index));
+		case "PreservationObjectAuditLog":
+			return ok(preservationObjectAuditLogTemplate.render(null, index));
+		default:
+			throw new RuntimeException("Category " + category + " not found.");
+		}
+	}
+	
 	public Result addPreservationObjectInformation() {
 		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(PreservationObjectInformation.class).bindFromRequest();
 		PreservationObjectInformation poi = formPreservationObjectInformation.get();

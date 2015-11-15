@@ -30,7 +30,7 @@ function addObjectNameFormElements(arg) {
 		idIndex = arg;
 	}
 	
-	var objectNameDiv = $(document.createElement('div')).attr('id', 'onDiv' + idIndex + "-" + onIndex[idIndex]);
+	/*var objectNameDiv = $(document.createElement('div')).attr('id', 'onDiv' + idIndex + "-" + onIndex[idIndex]);
 	var removeObjectNameButton = $(document.createElement('button')).attr('id', 'removeObjectNameButton' + idIndex + '.'+ onIndex[idIndex]).text('Remove');
 	removeObjectNameButton.click({param1: idIndex, param2: onIndex[idIndex]}, removeObjectNameFormElements);
 	objectNameDiv.after().html(
@@ -41,6 +41,8 @@ function addObjectNameFormElements(arg) {
 	if(onIndex[idIndex] == 0) {
 		$('#objectNamesDiv' + idIndex).append('<h6>identifiers[' + idIndex + '].names:</h6>');
 	}
-	$('#objectNamesDiv' + idIndex).append(objectNameDiv);
+	$('#objectNamesDiv' + idIndex).append(objectNameDiv);*/
+	
+	addDynamicFormElements('ObjectName', idIndex, onIndex[idIndex]);
 	onIndex[idIndex]++;
 }

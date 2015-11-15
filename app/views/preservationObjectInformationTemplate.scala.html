@@ -28,6 +28,29 @@
         	$(divToggleButton).text('+ ');
         }
 	}
+	
+	function addDynamicFormElements(cat, index, subIndex) {
+	 var request = $.ajax({
+	     url: '/dynamicFormElements?index=' + index + '&subIndex=' + subIndex +	'&category=' + cat,
+	     type: "GET",
+	     dataType: "html"
+	 });
+	 request.done(function(msg) {
+	 	addCategoryButton = '#add' + cat;
+	 	subcategoryDiv = '#div' + cat + index;
+	 	
+	 	if(subIndex != -1) {
+	 		alert('Inserting after ' + subcategoryDiv);
+	 		$(subcategoryDiv).append(msg);
+	 	}
+	 	
+	 	else {
+	 		alert('Inserting before ' + addCategoryButton);
+	    	$(addCategoryButton).before(msg);
+	    }
+	  });
+	}
+
 </script>
 
 <script src="@routes.Assets.versioned("javascripts/dynextp.js")" type="text/javascript"></script>
@@ -91,19 +114,19 @@
 		
 		@* Begin: Related objects category *@
 		<h4><a id="relatedObjectsDivToggleBtn" onclick="toggle('relatedObjectsDiv')" href="javascript:void(0);">– </a>Related objects</h4>
-		<div class="category" id="relatedObjectsDiv">
+		<div class="category" id="divRelatedObjects">
 			@if(poi.getObjectRelatedObjects().size() > 0) {
 				@for((ro,roIndex) <- poi.getObjectRelatedObjects().zipWithIndex) {
 					@relatedObjectsTemplate(ro,roIndex)
 				}
 			}
-		<button type="button" id="addRelatedObject" onclick="addRelatedObjectFormElements();">Add related object reference</button>
+		<button type="button" id="addRelatedObjects" onclick="addRelatedObjectFormElements();">Add related object reference</button>
 		</div>
 		@* End: Related objects category *@
 		
 		@* Begin: Audit log category *@
 		<h4><a id="preservationObjectAuditLogsDivToggleBtn" onclick="toggle('preservationObjectAuditLogsDiv')" href="javascript:void(0);">– </a>PO audit logs</h4>
-		<div class="category" id="preservationObjectAuditLogsDiv">
+		<div class="category" id="divPreservationObjectAuditLog">
 			@if(poi.getObjectAuditLog().size() > 0) {
 				@for((al,alIndex) <- poi.getObjectAuditLog().zipWithIndex) {
 					@preservationObjectAuditLogTemplate(al,alIndex)
@@ -113,6 +136,7 @@
 		</div>
 		@* End: Audit log category *@
 		
+		<div id="div1"></div>
 	</fieldSet>	
 	<br/>
 	<input type="submit" value="Save preservation object"/>

@@ -1,17 +1,12 @@
 @(fi: org.opensirf.obj.FixityInformation)
-
-@import org.opensirf.obj.FixityInformation
-
-@fixityInformation = @{ if(fi == null) new FixityInformation() else fi } 
+@fixityInformation = @{ if(fi == null) new org.opensirf.obj.FixityInformation() else fi } 
 
 @dynamicFixityInformationJS(fixityInformation.getDigestInformation().size())
 
 <div class="category" id="fixityInformationDiv">
-
-<dl class=" " id="objectFixity_field">
-
 	fixity.lastCheckDate
 	<input type="text" name="objectFixity.lastCheckDate" value="@fixityInformation.getLastCheckDate()"/>
+	<br/>
 	<div id="digestInformationDiv">
 		@if(fixityInformation.getDigestInformation().size() > 0) {
 			@for((di,diIndex) <- fixityInformation.getDigestInformation().zipWithIndex) {
@@ -20,8 +15,5 @@
 		}
 	</div>
 <br/>
-<button type="button" id="addDigestInformation" onclick="addDigestInformationFormElements(@fixityInformation.getDigestInformation().size());">Add digest information</button>
-
-</dl>
-
+<button type="button" id="addDigestInformation" onclick="addDigestInformationFormElements();">Add digest information</button>
 </div>

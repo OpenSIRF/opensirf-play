@@ -28,7 +28,7 @@ function removeRelatedObjectFormElements(arg1) {
 }
 
 function addRelatedObjectFormElements() {
-	var relatedObjectDiv = $(document.createElement('div')).attr('id', 'relatedObjectDiv' + relatedObjectCounter);
+	/*var relatedObjectDiv = $(document.createElement('div')).attr('id', 'relatedObjectDiv' + relatedObjectCounter);
 	var removeRelatedObjectButton = $(document.createElement('button')).attr('id', 'removeRelatedObjectButton' + relatedObjectCounter).attr('type', 'button').text('Remove related object');
 	removeRelatedObjectButton.click({param1: relatedObjectCounter}, removeRelatedObjectFormElements);
 	relatedObjectDiv.after().html(
@@ -36,7 +36,7 @@ function addRelatedObjectFormElements() {
 			'relatedObjects[' + relatedObjectCounter + '].reference.role <input type="text" name="objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceRole" />' +
 			'relatedObjects[' + relatedObjectCounter + '].reference.value <input type="text" name="objectRelatedObjects[' + relatedObjectCounter + '].objectRelatedObjectReference.referenceValue" />');
 	relatedObjectDiv.append(removeRelatedObjectButton);
-	//$("#relatedObjectsDiv").append(relatedObjectDiv);
-	relatedObjectDiv.insertBefore('#addRelatedObject');
+	relatedObjectDiv.insertBefore('#addRelatedObject');*/
+	addDynamicFormElements('RelatedObjects', relatedObjectCounter, -1);
 	relatedObjectCounter++;
 }

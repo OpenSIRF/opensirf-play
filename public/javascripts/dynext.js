@@ -27,7 +27,7 @@ function removeExtensionFormElements(arg1) {
 }
 
 function addExtensionFormElements() {
-	var extensionDiv = $(document.createElement('div')).attr('id', 'extensionDiv' + extensionCounter);
+	/*var extensionDiv = $(document.createElement('div')).attr('id', 'extensionDiv' + extensionCounter);
 	var extensionPairsDiv = $(document.createElement('div')).attr('id', 'extensionPairsDiv' + extensionCounter);
 	var removeExtensionButton = $(document.createElement('button')).attr('id', 'removeExtensionButton' + extensionCounter).attr("type", "button").text('Remove extension');
 	var addExtensionPairButton = $(document.createElement('button')).attr('id', 'addPair' + extensionCounter).attr("type", "button").text('Add extension pair');
@@ -40,7 +40,8 @@ function addExtensionFormElements() {
 	extensionDiv.append(extensionPairsDiv);
 	extensionDiv.append(addExtensionPairButton);
 	extensionDiv.append(removeExtensionButton);
-	extensionDiv.insertBefore('#addExtension');
+	extensionDiv.insertBefore('#addExtension');*/
+	addDynamicFormElements('Extension', extensionCounter, -1);
 	epIndex[extensionCounter] = 0;
-	extensionCounter++;
+	extensionCounter++;	
 }

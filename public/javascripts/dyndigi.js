@@ -10,7 +10,7 @@ function removeDigestInformationFormElements(arg) {
 }
 
 function addDigestInformationFormElements() {
-	var digestInformationDiv = $(document.createElement('div')).attr("id", 'diDiv' + digestCounter);
+	/*var digestInformationDiv = $(document.createElement('div')).attr("id", 'diDiv' + digestCounter);
 	var removeDigestInformationButton = $(document.createElement('button')).
 	 	attr("id", 'removeDigestInformationButton'+ digestCounter).
 	 	text('Remove');
@@ -20,7 +20,8 @@ function addDigestInformationFormElements() {
 			'digestInfo['+ digestCounter + '].digestAlgorithm <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestAlgorithm" /> ' +
 			'digestInfo['+ digestCounter + '].digestValue <input type="text" name="objectFixity.digestInformation['+ digestCounter + '].digestValue" /> ');
 	digestInformationDiv.append(removeDigestInformationButton);
-	$("#digestInformationDiv").append(digestInformationDiv);
+	$("#digestInformationDiv").append(digestInformationDiv);*/
+	addDynamicFormElements('DigestInformation', digestCounter, -1);
 	digestCounter++;
 }
 
