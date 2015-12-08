@@ -5,4 +5,8 @@ POST	/addPreservationObjectInformation			@controllers.Application.addPreservatio
 
 GET		/poiUnitTest								@controllers.Application.poiUnitTest()
 
+GET		/catalogUnitTest							@controllers.Application.catalogUnitTest()
+
+POST	/addCatalog									@controllers.Application.addCatalog()
+
 GET		/dynamicFormElements						@controllers.Application.dynamicFormElements(category: String, index: Int, subIndex: Int)

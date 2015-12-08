@@ -1,0 +1,19 @@
+@(cal: org.opensirf.audit.ContainerAuditLog, index: Int = 0)
+@containerAuditLog = @{ if(cal == null) new org.opensirf.audit.ContainerAuditLog() else cal } 
+
+<div id="containerAuditLogDiv@index">
+	
+	auditLog[@index].reference.type
+	<input type="text" name="containerInformation.containerAuditLog[@index].containerAuditLogReference.referenceType" value="@containerAuditLog.getContainerAuditLogReference().getReferenceType()"/>
+	            
+	auditLog[@index].reference.role
+	<input type="text" name="containerInformation.containerAuditLog[@index].containerAuditLogReference.referenceRole" value="@containerAuditLog.getContainerAuditLogReference().getReferenceRole()" />
+	
+	auditLog[@index].reference.value
+	<input type="text" name="containerInformation.containerAuditLog[@index].containerAuditLogReference.referenceValue" value="@containerAuditLog.getContainerAuditLogReference().getReferenceValue()" />
+	
+	<button type="button" id="removeContainerAuditLogButton@index" onclick="removeContainerAuditLogFormElements(@index);">Remove container audit log</button>
+	
+	<p />
+
+</div>

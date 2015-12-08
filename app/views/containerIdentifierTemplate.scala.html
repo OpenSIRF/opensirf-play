@@ -1,0 +1,17 @@
+@(cid: org.opensirf.container.ContainerIdentifier, index: Int = 0)
+@containerId = @{ if(cid == null) new org.opensirf.container.ContainerIdentifier() else cid }
+
+<div id="containerIdentifierDiv">
+
+identifier.type
+<input type="text" name="containerInformation.containerIdentifier.containerIdentifierType" value="@containerId.getContainerIdentifierType()"/>
+
+identifier.locale
+<input type="text" name="containerInformation.containerIdentifier.containerIdentifierLocale" value="@containerId.getContainerIdentifierLocale()"/>
+
+identifier.value
+<input type="text" name="containerInformation.containerIdentifier.containerIdentifierValue" value="@containerId.getContainerIdentifierValue()"/>
+
+<p />
+
+</div>

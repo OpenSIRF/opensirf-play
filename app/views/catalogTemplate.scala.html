@@ -1,0 +1,77 @@
+@(cForm: Form[org.opensirf.catalog.SIRFCatalog], c: org.opensirf.catalog.SIRFCatalog)
+@catalog = @{ if(c == null) new org.opensirf.catalog.SIRFCatalog() else c }
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+
+<script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">	
+	var containerAuditLogCounter = @catalog.getContainerInformation().getContainerAuditLog().size();
+
+	function toggle(divName) {
+		divElement = '#' + divName;
+		divToggleButton = '#' + divName + 'ToggleBtn';		
+        $(divElement).toggle();
+        if($(divToggleButton).text() == '+ ') {
+        	$(divToggleButton).text('– ');
+        } else {
+        	$(divToggleButton).text('+ ');
+        }
+	}
+	
+	function addDynamicFormElements(cat, index, subIndex) {
+	 var request = $.ajax({
+	     url: '/dynamicFormElements?index=' + index + '&subIndex=' + subIndex +	'&category=' + cat,
+	     type: "GET",
+	     dataType: "html"
+	 });
+	 request.done(function(msg) {
+	 	addCategoryButton = '#add' + cat;
+	 	subcategoryDiv = '#div' + cat + index;
+	 	
+	 	if(subIndex != -1) {
+	 		alert('Inserting after ' + subcategoryDiv);
+	 		$(subcategoryDiv).append(msg);
+	 	}
+	 	
+	 	else {
+	 		alert('Inserting before ' + addCategoryButton);
+	    	$(addCategoryButton).before(msg);
+	    }
+	  });
+	}
+
+</script>
+
+<script src="@routes.Assets.versioned("javascripts/dyncauditlog.js")" type="text/javascript"></script>
+
+@helper.form(action = routes.Application.addCatalog) {
+	<div class="catDiv" id="sirfCatalogDiv">
+	<fieldSet>
+		<h3>SIRF Catalog</h3>
+		
+		@* Begin: Catalog ID *@
+		<h4><a id="cidDivToggleBtn" onclick="toggle('cidDiv')" href="javascript:void(0);">– </a>Catalog ID</h4>
+		<div class="category" id="cidDiv">
+		catalogId
+		<input type="text" id="catalogId" name="catalogId" value="@catalog.getCatalogId()" />
+		</div>  
+		@* End: Catalog ID *@
+		
+		@* Begin: Container information *@
+		<h4><a id="ciDivToggleBtn" onclick="toggle('ciDiv')" href="javascript:void(0);">– </a>Container Information</h4>
+		@containerInformationTemplate(catalog.getContainerInformation())
+		@* End: Container information *@
+		
+		@* Begin: Preservation object list *@
+		<h4><a id="polDivToggleBtn" onclick="toggle('polDiv')" href="javascript:void(0);">– </a>Preservation Objects</h4>
+		@preservationObjectListTemplate(catalog.getSirfObjects())
+		@* End: Preservation object list *@
+		
+		<div id="div1"></div>
+	</fieldSet>	
+	<br/>
+	<input type="submit" value="Save SIRF Catalog"/>
+	</div>
+}

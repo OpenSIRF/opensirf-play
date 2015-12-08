@@ -1,0 +1,17 @@
+@(cpr: org.opensirf.container.ContainerProvenanceReference, index: Int = 0)
+@provenance = @{ if(cpr == null) new org.opensirf.container.ContainerProvenanceReference() else cpr }
+
+<div id="containerProvenanceDiv">
+
+provenance.type
+<input type="text" name="containerInformation.containerProvenanceReference.referenceType" value="@provenance.getReferenceType()"/>
+
+provenance.value
+<input type="text" name="containerInformation.containerProvenanceReference.referenceValue" value="@provenance.getReferenceValue()"/>
+
+provenance.role
+<input type="text" name="containerInformation.containerProvenanceReference.referenceRole" value="@provenance.getReferenceRole()"/>
+
+<p />
+
+</div>

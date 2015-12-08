@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.opensirf.audit.AuditLogReference;
 import org.opensirf.audit.PreservationObjectAuditLog;
+import org.opensirf.catalog.SIRFCatalog;
 import org.opensirf.obj.DigestInformation;
 import org.opensirf.obj.Extension;
 import org.opensirf.obj.ExtensionPair;
@@ -23,8 +24,10 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.preservationObjectAuditLogTemplate;
+import views.html.containerAuditLogTemplate;
 import views.html.extensionPairTemplate;
 import views.html.extensionTemplate;
+import views.html.catalogTemplate;
 import views.html.digestInformationTemplate;
 import views.html.objectNameTemplate;
 import views.html.identifierTemplate;
@@ -50,15 +53,28 @@ public class Application extends Controller {
 			return ok(relatedObjectsTemplate.render(null, index));
 		case "PreservationObjectAuditLog":
 			return ok(preservationObjectAuditLogTemplate.render(null, index));
+		case "ContainerAuditLog":
+			return ok(containerAuditLogTemplate.render(null, index));
 		default:
 			throw new RuntimeException("Category " + category + " not found.");
 		}
 	}
-	
+
 	public Result addPreservationObjectInformation() {
 		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(PreservationObjectInformation.class).bindFromRequest();
 		PreservationObjectInformation poi = formPreservationObjectInformation.get();
 		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
+	}
+	
+	public Result addCatalog() {
+		Form<SIRFCatalog> formCatalog = Form.form(SIRFCatalog.class).bindFromRequest();
+		SIRFCatalog c = formCatalog.get();
+		return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
+	}
+	
+	public Result catalogUnitTest() {
+		SIRFCatalog c = new SIRFCatalog();
+		return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
 	}
 	
 	public Result poiUnitTest() {

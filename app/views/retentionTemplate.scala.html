@@ -1,8 +1,5 @@
 @(r: org.opensirf.obj.Retention)
-
-@import org.opensirf.obj.Retention
-
-@retention = @{ if(r == null) new Retention("","") else r } 
+@retention = @{ if(r == null) new org.opensirf.obj.Retention("","") else r } 
 
 <div class="category" id="rDiv">
 

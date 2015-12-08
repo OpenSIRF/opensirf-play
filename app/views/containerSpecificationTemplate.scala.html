@@ -1,0 +1,16 @@
+@(cs: org.opensirf.container.ContainerSpecification)
+@containerSpec = @{ if(cs == null) new org.opensirf.container.ContainerSpecification() else cs } 
+
+<div id="csDiv">
+
+specification.identifier
+<input type="text" name="containerInformation.containerSpecification.containerSpecificationIdentifier" value="@containerSpec.getContainerSpecificationIdentifier()"/>
+
+specification.level
+<input type="text" name="containerInformation.containerSpecification.containerSpecificationSirfLevel" value="@containerSpec.getContainerSpecificationSirfLevel()"/>
+
+specification.version
+<input type="text" name="containerInformation.containerSpecification.containerSpecificationVersion" value="@containerSpec.getContainerSpecificationVersion()"/>
+
+</div>
+

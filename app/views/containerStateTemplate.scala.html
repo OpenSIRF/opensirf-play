@@ -1,0 +1,14 @@
+@(st: org.opensirf.container.State, index: Int = 0)
+@state = @{ if(st == null) new org.opensirf.container.State() else st }
+
+<div id="containerStateDiv">
+
+state.type
+<input type="text" name="containerInformation.containerState.containerStateType" value="@state.getContainerStateType()"/>
+
+state.value
+<input type="text" name="containerInformation.containerState.containerStateValue" value="@state.getContainerStateValue()"/>
+
+<p />
+
+</div>

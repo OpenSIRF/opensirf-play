@@ -1,0 +1,37 @@
+@(ci: org.opensirf.container.ContainerInformation)
+@containerInfo = @{ if(ci == null) new org.opensirf.container.ContainerInformation() else ci } 
+
+
+<script type="text/javascript">	
+	var containerAuditLogCounter = @containerInfo.getContainerAuditLog().size();
+</script>
+
+<script src="@routes.Assets.versioned("javascripts/dyncauditlog.js")" type="text/javascript"></script>
+
+<div class="category" id="ciDiv">
+
+<h4>Container Specification</h4>
+@containerSpecificationTemplate(ci.getContainerSpecification())
+
+<h4>Container Identifier</h4>
+@containerIdentifierTemplate(ci.getContainerIdentifier())
+
+<h4>Container State</h4>
+@containerStateTemplate(ci.getContainerState())
+
+<h4>Container Provenance Reference</h4>
+@containerProvenanceTemplate(ci.getContainerProvenanceReference())
+
+@* Begin: Audit log category *@
+<h4><a id="containerAuditLogsDivToggleBtn" onclick="toggle('containerAuditLogDiv')" href="javascript:void(0);">– </a>Container audit logs</h4>
+<div class="category" id="containerAuditLogDiv">
+	@if(containerInfo.getContainerAuditLog().size() > 0) {
+		@for((al,alIndex) <- containerInfo.getContainerAuditLog().zipWithIndex) {
+			@containerAuditLogTemplate(al,alIndex)
+		}
+	}
+<button type="button" id="addContainerAuditLog" onclick="addContainerAuditLogFormElements();">Add container audit log</button>
+</div>
+@* End: Audit log category *@
+
+</div>
