@@ -40,12 +40,10 @@
 	 	subcategoryDiv = '#div' + cat + index;
 	 	
 	 	if(subIndex != -1) {
-	 		alert('Inserting after ' + subcategoryDiv);
 	 		$(subcategoryDiv).append(msg);
 	 	}
 	 	
 	 	else {
-	 		alert('Inserting before ' + addCategoryButton);
 	    	$(addCategoryButton).before(msg);
 	    }
 	  });

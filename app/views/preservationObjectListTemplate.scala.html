@@ -1,3 +1,14 @@
 @(pos: org.opensirf.catalog.IndexedObjectInformationSet)
 @objectSet = @{ if(pos == null) new org.opensirf.catalog.IndexedObjectInformationSet() else pos } 
 
+<div class="category" id="preservationObjects">
+	@if(objectSet.size() > 0) {
+		@for(name <- objectSet.getMap().keySet()) {
+			PO with version identifier '@name'
+			<button type="button" id="editPreservationObject" onclick="editPreservationObject();">Edit Preservation Object</button>
+			<br/>
+		}
+	}
+
+<button type="button" id="addPreservationObjectButton" onclick="addPreservationObject();">Add new Preservation Object</button>
+

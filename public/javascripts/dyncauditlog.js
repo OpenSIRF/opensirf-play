@@ -1,6 +1,6 @@
 function renumberContainerAuditLogs() {
 	var k = 0;
-	$('#containerAuditLogsDiv').each(function(j) {
+	$('#containerAuditLogDiv').each(function(j) {
 		$('div', this).each(function(i,item) {
 			if(!item.id.match('containerAuditLogDiv')) { // ignore divs which aren't audit log divs
 				return true;

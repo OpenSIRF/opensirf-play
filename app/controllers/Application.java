@@ -29,6 +29,9 @@ import views.html.extensionPairTemplate;
 import views.html.extensionTemplate;
 import views.html.catalogTemplate;
 import views.html.digestInformationTemplate;
+import views.html.setupTemplate;
+import views.html.documentationTemplate;
+import views.html.aboutTemplate;
 import views.html.objectNameTemplate;
 import views.html.identifierTemplate;
 import views.html.relatedObjectsTemplate;
@@ -72,12 +75,13 @@ public class Application extends Controller {
 		return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
 	}
 	
-	public Result catalogUnitTest() {
-		SIRFCatalog c = new SIRFCatalog();
+	public Result catalog() {
+		SIRFCatalog c = new SIRFCatalog("myId", "myContainer");
+		c.getSirfObjects().add(po());
 		return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
 	}
 	
-	public Result poiUnitTest() {
+	private PreservationObjectInformation po() { 
 		PreservationObjectInformation poi = new PreservationObjectInformation();
 		poi.setObjectRetention(new Retention("retType", "retValue"));
 		poi.setPackagingFormat(new PackagingFormat("packFormat"));
@@ -129,7 +133,25 @@ public class Application extends Controller {
 		auditLogs.add(auditLog);
 		poi.setObjectAuditLog(auditLogs);
 		
+		return poi;
+	}
+	
+	public Result poiUnitTest() {
+		PreservationObjectInformation poi = po();
+		
 		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
+	}
+
+	public Result setup() {
+		return ok(setupTemplate.render());
+	}
+
+	public Result documentation() {
+		return ok(documentationTemplate.render());
+	}
+
+	public Result about() {
+		return ok(aboutTemplate.render());
 	}
 	
 }

@@ -1,0 +1,55 @@
+<head>
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    background-color: #f1f1f1;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 0 8px 20px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+.logo {
+ float: left;
+ padding: 5px 5px 5px 10px;
+ margin-bottom: 5px;
+ vertical-align: middle;
+}
+
+.title {
+ font-size: 2.4rem;
+ line-height: 1.35;
+ letter-spacing: -.08rem;
+ vertical-align: middle;
+ margin-top: 0;
+ margin-bottom: 2rem;
+ padding-top: 12px;
+ font-weight: bold;
+ font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+</style>
+</head>
+
+<div id="menu">
+<img class="logo" src="@routes.Assets.versioned("images/sirficon.png")"/>
+<p class="title">OpenSIRF</p>
+<ul>
+  <li><a href="/setup">Container setup</a></li>
+  <li><a href="/catalog">Catalog</a></li>
+  <li><a href="/documentation">Documentation</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+</div>

@@ -31,12 +31,10 @@
 	 	subcategoryDiv = '#div' + cat + index;
 	 	
 	 	if(subIndex != -1) {
-	 		alert('Inserting after ' + subcategoryDiv);
 	 		$(subcategoryDiv).append(msg);
 	 	}
 	 	
 	 	else {
-	 		alert('Inserting before ' + addCategoryButton);
 	    	$(addCategoryButton).before(msg);
 	    }
 	  });
@@ -46,6 +44,9 @@
 
 <script src="@routes.Assets.versioned("javascripts/dyncauditlog.js")" type="text/javascript"></script>
 
+@menuTemplate()
+
+<div id="main">
 @helper.form(action = routes.Application.addCatalog) {
 	<div class="catDiv" id="sirfCatalogDiv">
 	<fieldSet>
@@ -70,8 +71,9 @@
 		@* End: Preservation object list *@
 		
 		<div id="div1"></div>
-	</fieldSet>	
+	</fieldSet>
 	<br/>
 	<input type="submit" value="Save SIRF Catalog"/>
 	</div>
 }
+</div>

@@ -471,3 +471,17 @@ div.po {
   padding-bottom: 10px; 
   padding-right: 2	0px; }
   
+#menu {
+  width: auto;
+  height: 100%;
+  background-color: #f1f1f1;
+}
+
+#main {
+	padding-top: 15px;
+	padding-left: 30px;
+}
+
+#menu, #main {
+	float: left;
+}
