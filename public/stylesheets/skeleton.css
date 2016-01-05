@@ -465,6 +465,11 @@ div.subcategory2 {
   background-color: #FCFCFA;
   padding-left: 40px; }
   
+div.config {
+  margin-bottom: 5px;
+  background-color: #FCFCFA;
+  padding: 40px; }
+  
 div.po {
   padding-left: 20px; 
   padding-top: 5px; 

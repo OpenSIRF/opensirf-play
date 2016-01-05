@@ -1,10 +1,12 @@
 package controllers;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 import org.opensirf.audit.AuditLogReference;
 import org.opensirf.audit.PreservationObjectAuditLog;
 import org.opensirf.catalog.SIRFCatalog;
+import org.opensirf.jaxrs.config.SIRFConfigurationUnmarshaller;
 import org.opensirf.obj.DigestInformation;
 import org.opensirf.obj.Extension;
 import org.opensirf.obj.ExtensionPair;
@@ -143,7 +145,7 @@ public class Application extends Controller {
 	}
 
 	public Result setup() {
-		return ok(setupTemplate.render());
+		return ok(setupTemplate.render(null));
 	}
 
 	public Result documentation() {

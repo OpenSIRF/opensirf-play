@@ -1,3 +1,5 @@
+@(conf: org.opensirf.jaxrs.config.SIRFConfiguration)
+
 <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">
 <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
 
@@ -6,9 +8,28 @@
 @menuTemplate()
 
 <div id="main">
-	<div class="catDiv" id="sirfCatalogDiv">
+	<div class="confDiv" id="sirfConfigDiv">
 	<fieldSet>
 		<h3>Container setup</h3>
+		
+		OpenSIRF REST Endpoint
+		<input type="text" name="restEndpoint" value=""/>
+		<button id="loadConfig">Load</button>
+		
+		<div id="containerConfDiv" class="config">
+		
+		Container name
+		<input type="text" name="containerName" size="50" value="aaaa" disabled/><br/>
+		
+		
+		Driver
+		<input type="text" name="driver" size="15" value="" disabled/><br/>
+		
+		
+		Endpoint
+		<input type="text" name="endpoint" size="50" value="" disabled/><br/>
+		</div>
+		
 	</fieldSet>
 	<br/>
 	<input type="submit" value="Save setup"/>
