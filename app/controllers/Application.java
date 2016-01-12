@@ -1,12 +1,15 @@
 package controllers;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.opensirf.audit.AuditLogReference;
 import org.opensirf.audit.PreservationObjectAuditLog;
 import org.opensirf.catalog.SIRFCatalog;
-import org.opensirf.jaxrs.config.SIRFConfigurationUnmarshaller;
+import org.opensirf.jaxrs.config.SIRFConfiguration;
+import org.opensirf.jaxrs.config.SwiftConfiguration;
 import org.opensirf.obj.DigestInformation;
 import org.opensirf.obj.Extension;
 import org.opensirf.obj.ExtensionPair;
@@ -21,23 +24,25 @@ import org.opensirf.obj.PreservationObjectVersionIdentifier;
 import org.opensirf.obj.RelatedObjectReference;
 import org.opensirf.obj.RelatedObjects;
 import org.opensirf.obj.Retention;
+import org.opensirf.storage.SwiftStrategy;
 
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.preservationObjectAuditLogTemplate;
+import model.MyConfiguration;
+import views.html.aboutTemplate;
+import views.html.catalogTemplate;
 import views.html.containerAuditLogTemplate;
+import views.html.digestInformationTemplate;
+import views.html.documentationTemplate;
 import views.html.extensionPairTemplate;
 import views.html.extensionTemplate;
-import views.html.catalogTemplate;
-import views.html.digestInformationTemplate;
-import views.html.setupTemplate;
-import views.html.documentationTemplate;
-import views.html.aboutTemplate;
-import views.html.objectNameTemplate;
 import views.html.identifierTemplate;
-import views.html.relatedObjectsTemplate;
+import views.html.objectNameTemplate;
+import views.html.preservationObjectAuditLogTemplate;
 import views.html.preservationObjectInformationTemplate;
+import views.html.relatedObjectsTemplate;
+import views.html.setupTemplate;
 
 public class Application extends Controller {
 
@@ -71,6 +76,16 @@ public class Application extends Controller {
 		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
 	}
 	
+	public Result saveSetup(String endpoint) {
+		try {
+			Files.write(Paths.get(SIRFConfiguration.SIRF_DEFAULT_DIRECTORY + "endpoint"), endpoint.getBytes());
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
+		return ok();
+	}
+	
 	public Result addCatalog() {
 		Form<SIRFCatalog> formCatalog = Form.form(SIRFCatalog.class).bindFromRequest();
 		SIRFCatalog c = formCatalog.get();
@@ -83,7 +98,7 @@ public class Application extends Controller {
 		return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
 	}
 	
-	private PreservationObjectInformation po() { 
+	private PreservationObjectInformation po() {
 		PreservationObjectInformation poi = new PreservationObjectInformation();
 		poi.setObjectRetention(new Retention("retType", "retValue"));
 		poi.setPackagingFormat(new PackagingFormat("packFormat"));
@@ -145,7 +160,15 @@ public class Application extends Controller {
 	}
 
 	public Result setup() {
-		return ok(setupTemplate.render(null));
+		String s;
+		
+		try {
+			s = new String(Files.readAllBytes(
+					Paths.get(SIRFConfiguration.SIRF_DEFAULT_DIRECTORY + "endpoint")));
+		} catch(IOException e) {
+			s = "";
+		}
+		return ok(setupTemplate.render(s));
 	}
 
 	public Result documentation() {

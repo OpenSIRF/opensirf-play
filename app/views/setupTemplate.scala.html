@@ -1,4 +1,4 @@
-@(conf: org.opensirf.jaxrs.config.SIRFConfiguration)
+@(endpoint: String)
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/skeleton.css")">
 <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
@@ -7,31 +7,93 @@
 
 @menuTemplate()
 
+<script type="text/javascript">
+	function loadSetup() {
+		endpoint = document.getElementById('restEndpoint').value;
+		if(!endpoint) {
+			endpoint = '@endpoint';
+		}
+		
+		if(endpoint) {
+			var request = $.ajax({
+				 crossDomain: true,
+			     type: "GET",
+			     contentType: 'application/json',
+		         url: 'http://' + endpoint + '/sirf/configp',
+			     dataType: 'jsonp',
+			     jsonpCallback: 'configCallback'
+			});
+		
+			 request.done(function(data, textStatus, jqXHR) {
+					$('#credential').val(data.credential);
+					$('#containerName').val(data.containerName);
+					$('#driver').val(data.driver);
+					$('#endpoint').val(data.endpoint);
+					$('#identity').val(data.identity);
+					$('#provider').val(data.provider);
+					$('#region').val(data.region);
+	
+					$.ajax({
+						type: 'GET',
+						url: '/saveSetup?endpoint=' + endpoint
+				  });
+			  });
+		
+			 request.fail(function(jqXHR, textStatus, errorThrown) {
+				 	alert('Failed to retrieve configuration from the endpoint.');
+			  });
+		  }
+	 }
+		  
+	document.addEventListener('DOMContentLoaded', function() {
+	    loadSetup();
+	}, false);	 
+</script>
+
 <div id="main">
+	<h3>Container setup</h3>
+	
+	OpenSIRF REST Endpoint:Port
+	<input type="text" id="restEndpoint" value="@endpoint"/>
+	<button type="button" id="loadConfig" onclick="loadSetup()">Load</button>
+	</form>
+	
 	<div class="confDiv" id="sirfConfigDiv">
 	<fieldSet>
-		<h3>Container setup</h3>
-		
-		OpenSIRF REST Endpoint
-		<input type="text" name="restEndpoint" value=""/>
-		<button id="loadConfig">Load</button>
 		
 		<div id="containerConfDiv" class="config">
 		
+		<h5>Container configuration</h5>
+		
 		Container name
-		<input type="text" name="containerName" size="50" value="aaaa" disabled/><br/>
+		<input type="text" id="containerName" name="containerName" size="50" value=""/><br/>
+		
+		
+		Credential
+		<input type="text" id="credential" name="credential" size="50" value=""/><br/>
 		
 		
 		Driver
-		<input type="text" name="driver" size="15" value="" disabled/><br/>
+		<input type="text" id="driver" name="driver" size="15" value=""/><br/>
 		
 		
-		Endpoint
-		<input type="text" name="endpoint" size="50" value="" disabled/><br/>
+		Storage Endpoint
+		<input type="text" id="endpoint" name="endpoint" size="50" value=""/><br/>
+		
+		
+		Identity
+		<input type="text" id="identity" name="identity" size="50" value=""/><br/>
+		
+		
+		Provider
+		<input type="text" id="provider" name="provider" size="50" value=""/><br/>
+		
+		
+		Region
+		<input type="text" id="region" name="region" size="50" value=""/><br/>
 		</div>
 		
 	</fieldSet>
 	<br/>
-	<input type="submit" value="Save setup"/>
 	</div>
 </div>

@@ -16,3 +16,5 @@ GET		/setup										@controllers.Application.setup()
 GET		/documentation								@controllers.Application.documentation()
 
 GET		/about										@controllers.Application.about()
+
+GET 	/saveSetup									@controllers.Application.saveSetup(endpoint: String)
