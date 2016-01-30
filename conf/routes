@@ -13,6 +13,8 @@ GET		/dynamicFormElements						@controllers.Application.dynamicFormElements(cate
 
 GET		/setup										@controllers.Application.setup()
 
+GET		/											@controllers.Application.setup()
+
 GET		/documentation								@controllers.Application.documentation()
 
 GET		/about										@controllers.Application.about()

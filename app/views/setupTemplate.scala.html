@@ -24,15 +24,15 @@
 			     jsonpCallback: 'configCallback'
 			});
 		
-			 request.done(function(data, textStatus, jqXHR) {
-					$('#credential').val(data.credential);
-					$('#containerName').val(data.containerName);
-					$('#driver').val(data.driver);
-					$('#endpoint').val(data.endpoint);
-					$('#identity').val(data.identity);
-					$('#provider').val(data.provider);
-					$('#region').val(data.region);
-	
+			 request.done(function(data, textStatus, jqXHR) {			 
+					$('#credential').val(data.containerConfiguration.credential);
+					$('#containerName').val(data.containerConfiguration.containerName);
+					$('#driver').val(data.containerConfiguration.driver);
+					$('#endpoint').val(data.containerConfiguration.endpoint);
+					$('#identity').val(data.containerConfiguration.identity);
+					$('#provider').val(data.containerConfiguration.provider);
+					$('#region').val(data.containerConfiguration.region);
+						
 					$.ajax({
 						type: 'GET',
 						url: '/saveSetup?endpoint=' + endpoint
