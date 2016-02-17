@@ -84,6 +84,13 @@ public class Application extends Controller {
 		PreservationObjectInformation poi = formPreservationObjectInformation.get();
 		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
 	}
+	
+	public Result createPreservationObjectInformation() {
+		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(PreservationObjectInformation.class)
+				.bindFromRequest();
+		PreservationObjectInformation poi = formPreservationObjectInformation.get();
+		return ok(preservationObjectInformationTemplate.render(Form.form(PreservationObjectInformation.class), poi));
+	}
 
 	public Result saveSetup(String endpoint) {
 		try {
@@ -98,27 +105,31 @@ public class Application extends Controller {
 	public Result addCatalog() {
 		Form<SIRFCatalog> formCatalog = Form.form(SIRFCatalog.class).bindFromRequest();
 		SIRFCatalog c = formCatalog.get();
+		
+		SIRFConfiguration conf = getConfig();
+		StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
+		strat.pushCatalog(c);
+		
 		return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
 	}
 
 	public Result catalog() {
-		try {			
-			// TODO: put code below in a proper place to always extract the configuration
+		SIRFConfiguration conf = getConfig();
+		StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
+		SIRFCatalog c = strat.getCatalog();
+		return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
+	}
+	
+	private SIRFConfiguration getConfig() {
+		try {
 			String endpoint = new String(Files.readAllBytes(Paths.get(SIRFConfiguration.SIRF_DEFAULT_DIRECTORY + "endpoint")));
-
 			Client client = ClientBuilder.newClient();
-
 			WebTarget resource = client.target("http://" + endpoint + "/sirf/config");
-
 			Builder request = resource.request();
 			request.accept(MediaType.APPLICATION_JSON);
 			Response response = request.get();
 			String output = response.readEntity(String.class);
-			SIRFConfiguration conf = new SIRFConfigurationUnmarshaller().unmarshalConfig(output);
-			StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
-			SIRFCatalog c = strat.getCatalog();
-			return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
-			
+			return new SIRFConfigurationUnmarshaller().unmarshalConfig(output);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;

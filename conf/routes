@@ -3,6 +3,8 @@ GET     /assets/*file               				@controllers.Assets.versioned(path="/pub
 
 POST	/addPreservationObjectInformation			@controllers.Application.addPreservationObjectInformation()
 
+GET		/createPOI									@controllers.Application.createPreservationObjectInformation()
+
 GET		/poiUnitTest								@controllers.Application.poiUnitTest()
 
 GET		/catalog									@controllers.Application.catalog()

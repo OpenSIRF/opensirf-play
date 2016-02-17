@@ -59,6 +59,9 @@
 <script src="@routes.Assets.versioned("javascripts/dynrelobj.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("javascripts/dynauditlog.js")" type="text/javascript"></script>
 
+@menuTemplate()
+
+<div id="main">
 @helper.form(action = routes.Application.addPreservationObjectInformation) {
 	<div class="po" id="preservationObjectInformationDiv">
 	<fieldSet>
@@ -140,3 +143,4 @@
 	<input type="submit" value="Save preservation object"/>
 	</div>
 }
+</div>

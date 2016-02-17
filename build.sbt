@@ -9,7 +9,8 @@ scalaVersion := "2.11.6"
 libraryDependencies ++= Seq(
   javaJdbc,
   cache,
-  javaWs
+  javaWs,
+  "com.google.inject" % "guice" % "3.0"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the

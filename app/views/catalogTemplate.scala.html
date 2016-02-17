@@ -64,16 +64,14 @@
 		<h4><a id="ciDivToggleBtn" onclick="toggle('ciDiv')" href="javascript:void(0);">– </a>Container Information</h4>
 		@containerInformationTemplate(catalog.getContainerInformation())
 		@* End: Container information *@
-		
-		@* Begin: Preservation object list *@
-		<h4><a id="polDivToggleBtn" onclick="toggle('polDiv')" href="javascript:void(0);">– </a>Preservation Objects</h4>
-		@preservationObjectListTemplate(catalog.getSirfObjects())
-		@* End: Preservation object list *@
-		
-		<div id="div1"></div>
 	</fieldSet>
-	<br/>
-	<input type="submit" value="Save SIRF Catalog"/>
+	<input type="submit" value="Save catalog metadata"/>
+
+	<p/>
+	@* Begin: Preservation object list *@
+	<h4><a id="polDivToggleBtn" onclick="toggle('polDiv')" href="javascript:void(0);">– </a>Preservation Objects</h4>
+	@preservationObjectListTemplate(catalog.getSirfObjects())
+	@* End: Preservation object list *@
 	</div>
 }
 </div>
