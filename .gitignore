@@ -1,3 +1,4 @@
+*.log
 .cache-main
 .cache-tests
 logs

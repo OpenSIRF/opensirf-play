@@ -5,8 +5,6 @@ POST	/addPreservationObjectInformation			@controllers.Application.addPreservatio
 
 GET		/createPOI									@controllers.Application.createPreservationObjectInformation()
 
-GET		/poiUnitTest								@controllers.Application.poiUnitTest()
-
 GET		/catalog									@controllers.Application.catalog()
 
 POST	/addCatalog									@controllers.Application.addCatalog()
@@ -22,3 +20,5 @@ GET		/documentation								@controllers.Application.documentation()
 GET		/about										@controllers.Application.about()
 
 GET 	/saveSetup									@controllers.Application.saveSetup(endpoint: String)
+
+GET		/editPreservationObject						@controllers.Application.editPreservationObject(uuid: String)

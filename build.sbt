@@ -1,8 +1,17 @@
-name := """opensirf-play"""
+lazy val commonSettings = Seq(
+  organization := "org.opensirf.play",
+  version := "1.0.0"
+)
 
-version := "1.0-SNAPSHOT"
-
-lazy val root = (project in file(".")).enablePlugins(PlayJava)
+lazy val root = (project in file(".")).enablePlugins(PlayJava).
+  settings(
+    name := "OpenSIRF JAX-RS",
+    artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
+      artifact.name + "-" + version.value + "." + artifact.extension
+    },
+    version := "1.0.0"
+  )
+  
 
 scalaVersion := "2.11.6"
 

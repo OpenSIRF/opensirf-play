@@ -5,7 +5,7 @@
 	@if(objectSet.size() > 0) {
 		@for(name <- objectSet.getMap().keySet()) {
 			PO with version identifier '@name'
-			<button type="button" id="editPreservationObjectButton" onclick="editPreservationObject(@name);">Edit Preservation Object</button>
+			<button type="button" id="editPreservationObjectButton" onclick="window.location = '/editPreservationObject?uuid=@name'">Edit Preservation Object</button>
 			<br/>
 		}
 	}
