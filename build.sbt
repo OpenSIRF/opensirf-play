@@ -16,7 +16,8 @@ libraryDependencies ++= Seq(
   javaJdbc,
   cache,
   javaWs,
-  "com.google.inject" % "guice" % "4.0",
+  "com.google.inject" % "guice" % "3.0",
+  "com.google.inject.extensions" % "guice-assistedinject" % "4.0",
   "org.opensirf.jaxrs" % "opensirf-jax-rs" % "1.0.0",
   "org.opensirf.core" % "opensirf-core" % "1.0.0"
 )
