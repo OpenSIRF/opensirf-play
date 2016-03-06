@@ -10,3 +10,4 @@ target
 /RUNNING_PID
 /bin/
 /.tmpBin/
+/lib_managed/
