@@ -48,6 +48,31 @@
 	    }
 	  });
 	}
+	
+	function savePO() {
+		if("@(poi == null)" == "true") { // New PO - add it
+			var client = new XMLHttpRequest();
+			var poForm = document.getElementById("poForm");		
+			var formData = new FormData(poForm);
+			formData.append("inputStream", document.getElementById("poFile").files[0]);
+			url = "/addPreservationObjectInformation";
+			client.open("POST", url, true);
+			client.send(formData);
+			alert('PO uploaded successfully.');
+			window.location = "/catalog";
+		}
+		
+		else {	// Editing existing PO - save it	
+			var client = new XMLHttpRequest();
+			var poForm = document.getElementById("poForm");		
+			var formData = new FormData(poForm);
+			url = "/savePreservationObjectInformation";
+			client.open("POST", url, true);
+			client.send(formData);
+			alert('PO updated successfully.');
+			window.location = "/catalog";
+		}  
+	}
 
 </script>
 
@@ -62,7 +87,7 @@
 @menuTemplate()
 
 <div id="main">
-@helper.form(action = routes.Application.addPreservationObjectInformation) {
+@helper.form(action = routes.Application.addPreservationObjectInformation, 'id -> "poForm") {
 	<div class="po" id="preservationObjectInformationDiv">
 	<fieldSet>
 		<h3>Preservation Object</h3>
@@ -70,30 +95,30 @@
 		@* Begin: Dates categories *@
 		<h4><a id="datesDivToggleBtn" onclick="toggle('datesDiv')" href="javascript:void(0);">– </a>Dates</h4>
 		<div class="category" id="datesDiv">
-		@datesTemplate(poi.getObjectCreationDate(), poi.getObjectLastModifiedDate(), poi.getObjectLastAccessedDate())
+		@datesTemplate(presObjInfo.getObjectCreationDate(), presObjInfo.getObjectLastModifiedDate(), presObjInfo.getObjectLastAccessedDate())
 		</div>
 		@* End: Dates categories *@
 		
 		@* Begin: Retention category *@
 		<h4><a id="rDivToggleBtn" onclick="toggle('rDiv')" href="javascript:void(0);">– </a>Retention</h4>
-		@retentionTemplate(poi.getObjectRetention())
+		@retentionTemplate(presObjInfo.getObjectRetention())
 		@* End: Retention category *@
 		
 		@* Begin: Packaging format category *@
 		<h4><a id="pfDivToggleBtn" onclick="toggle('pfDiv')" href="javascript:void(0);">– </a>Packaging format</h4>
-		@packagingFormatTemplate(poi.getPackagingFormat())
+		@packagingFormatTemplate(presObjInfo.getPackagingFormat())
 		@* End: Packaging format category *@
 		
 		@* Begin: Fixity information category *@
 		<h4><a id="fixityInformationDivToggleBtn" onclick="toggle('fixityInformationDiv')" href="javascript:void(0);">– </a>Fixity information</h4>
-		@fixityInformationTemplate(poi.getObjectFixity())
+		@fixityInformationTemplate(presObjInfo.getObjectFixity())
 		@* End: Fixity information category *@
 		
 		@* Begin: Extension category *@
 		<h4><a id="extensionsDivToggleBtn" onclick="toggle('extensionsDiv')" href="javascript:void(0);">– </a>Extensions</h4>
 		<div class="category" id="extensionsDiv">
-			@if(poi.getObjectExtension().size() > 0) {
-				@for((e,eIndex) <- poi.getObjectExtension().zipWithIndex) {
+			@if(presObjInfo.getObjectExtension().size() > 0) {
+				@for((e,eIndex) <- presObjInfo.getObjectExtension().zipWithIndex) {
 					@extensionTemplate(e,eIndex)
 				}
 			}
@@ -104,8 +129,8 @@
 		@* Begin: Identifier category *@
 		<h4><a id="identifiersDivToggleBtn" onclick="toggle('identifiersDiv')" href="javascript:void(0);">– </a>Identifiers</h4>
 		<div class="category" id="identifiersDiv">
-			@if(poi.getObjectIdentifiers().size() > 0) {
-				@for((i,iIndex) <- poi.getObjectIdentifiers().zipWithIndex) {
+			@if(presObjInfo.getObjectIdentifiers().size() > 0) {
+				@for((i,iIndex) <- presObjInfo.getObjectIdentifiers().zipWithIndex) {
 					@identifierTemplate(i,iIndex)
 				}
 			}
@@ -116,8 +141,8 @@
 		@* Begin: Related objects category *@
 		<h4><a id="relatedObjectsDivToggleBtn" onclick="toggle('relatedObjectsDiv')" href="javascript:void(0);">– </a>Related objects</h4>
 		<div class="category" id="divRelatedObjects">
-			@if(poi.getObjectRelatedObjects().size() > 0) {
-				@for((ro,roIndex) <- poi.getObjectRelatedObjects().zipWithIndex) {
+			@if(presObjInfo.getObjectRelatedObjects().size() > 0) {
+				@for((ro,roIndex) <- presObjInfo.getObjectRelatedObjects().zipWithIndex) {
 					@relatedObjectsTemplate(ro,roIndex)
 				}
 			}
@@ -128,8 +153,8 @@
 		@* Begin: Audit log category *@
 		<h4><a id="preservationObjectAuditLogsDivToggleBtn" onclick="toggle('preservationObjectAuditLogsDiv')" href="javascript:void(0);">– </a>PO audit logs</h4>
 		<div class="category" id="divPreservationObjectAuditLog">
-			@if(poi.getObjectAuditLog().size() > 0) {
-				@for((al,alIndex) <- poi.getObjectAuditLog().zipWithIndex) {
+			@if(presObjInfo.getObjectAuditLog().size() > 0) {
+				@for((al,alIndex) <- presObjInfo.getObjectAuditLog().zipWithIndex) {
 					@preservationObjectAuditLogTemplate(al,alIndex)
 				}
 			}
@@ -137,10 +162,16 @@
 		</div>
 		@* End: Audit log category *@
 		
+		@if(poi == null) {
+			<h4>File</h4>
+			<input type="file" id="poFile" name="poFile"/>
+		}
+		
 		<div id="div1"></div>
-	</fieldSet>	
+	</fieldSet>
 	<br/>
-	<input type="submit" value="Save preservation object"/>
+	<button type="button" onclick="savePO();">Save preservation object</button>
+	<!-- <input type="submit" value="Save preservation object"/> -->
 	</div>
 }
 </div>

@@ -7,7 +7,7 @@ GET		/createPOI									@controllers.Application.createPreservationObjectInforma
 
 GET		/catalog									@controllers.Application.catalog()
 
-POST	/addCatalog									@controllers.Application.addCatalog()
+POST	/saveCatalog								@controllers.Application.saveCatalog()
 
 GET		/dynamicFormElements						@controllers.Application.dynamicFormElements(category: String, index: Int, subIndex: Int)
 
@@ -22,3 +22,7 @@ GET		/about										@controllers.Application.about()
 GET 	/saveSetup									@controllers.Application.saveSetup(endpoint: String)
 
 GET		/editPreservationObject						@controllers.Application.editPreservationObject(uuid: String)
+
+GET		/downloadPreservationObject					@controllers.Application.downloadPreservationObject(uuid: String)
+
+POST	/savePreservationObjectInformation			@controllers.Application.savePreservationObjectInformation()
