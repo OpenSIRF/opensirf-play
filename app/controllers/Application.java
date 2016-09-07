@@ -1,61 +1,34 @@
 package controllers;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
-import javax.ws.rs.PathParam;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.client.ClientResponse;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.MultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.media.multipart.file.FileDataBodyPart;
-
-import play.mvc.BodyParser;
-import play.mvc.Http;
-import play.mvc.Http.MultipartFormData.FilePart;
-import play.mvc.Http.RequestBody;
-
-import org.opensirf.audit.AuditLogReference;
-import org.opensirf.audit.PreservationObjectAuditLog;
 import org.opensirf.catalog.SIRFCatalog;
-import org.opensirf.jaxrs.api.ObjectApi;
-import org.opensirf.jaxrs.config.SIRFConfiguration;
-import org.opensirf.jaxrs.config.SIRFConfigurationMarshaller;
-import org.opensirf.jaxrs.config.SIRFConfigurationUnmarshaller;
-import org.opensirf.obj.DigestInformation;
-import org.opensirf.obj.Extension;
-import org.opensirf.obj.ExtensionPair;
-import org.opensirf.obj.FixityInformation;
-import org.opensirf.obj.PackagingFormat;
-import org.opensirf.obj.PreservationObjectIdentifier;
-import org.opensirf.obj.PreservationObjectInformation;
-import org.opensirf.obj.PreservationObjectLogicalIdentifier;
-import org.opensirf.obj.PreservationObjectName;
-import org.opensirf.obj.PreservationObjectParentIdentifier;
-import org.opensirf.obj.PreservationObjectVersionIdentifier;
-import org.opensirf.obj.RelatedObjectReference;
-import org.opensirf.obj.RelatedObjects;
-import org.opensirf.obj.Retention;
+import org.opensirf.client.SirfClient;
 import org.opensirf.jaxrs.api.StorageContainerStrategy;
 import org.opensirf.jaxrs.api.StrategyFactory;
+import org.opensirf.jaxrs.config.SIRFConfiguration;
+import org.opensirf.obj.PreservationObjectInformation;
 
 import play.data.Form;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
+import play.mvc.Http.MultipartFormData.FilePart;
+import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 import views.html.aboutTemplate;
 import views.html.catalogTemplate;
@@ -218,23 +191,32 @@ public class Application extends Controller {
 	}
 
 	public Result catalog() {
-		SIRFConfiguration conf = getConfig();
-		StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
-		SIRFCatalog c = strat.getCatalog();
-		return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
-	}
+		try {
+			String endpoint = new String(Files.readAllBytes(Paths.get(
+				SIRFConfiguration.SIRF_DEFAULT_DIRECTORY + "endpoint")));
 	
+			SirfClient c = new SirfClient(endpoint);
+			
+			return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c.getCatalog("philContainer")));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+//	public Result catalog() {
+//		SIRFConfiguration conf = getConfig();
+//		StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
+//		SIRFCatalog c = strat.getCatalog();
+//		return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
+//	}
+
 	private SIRFConfiguration getConfig() {
 		try {
 			String endpoint = new String(Files.readAllBytes(Paths.get(
-					SIRFConfiguration.SIRF_DEFAULT_DIRECTORY + "endpoint")));
-			Client client = ClientBuilder.newClient();
-			WebTarget resource = client.target("http://" + endpoint + "/sirf/config");
-			Builder request = resource.request();
-			request.accept(MediaType.APPLICATION_JSON);
-			Response response = request.get();
-			String output = response.readEntity(String.class);
-			return new SIRFConfigurationUnmarshaller().unmarshalConfig(output);
+				SIRFConfiguration.SIRF_DEFAULT_DIRECTORY + "endpoint")));
+			SirfClient c = new SirfClient(endpoint);
+			return c.getConfiguration();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;

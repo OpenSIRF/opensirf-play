@@ -24,7 +24,7 @@
 			     jsonpCallback: 'configCallback'
 			});
 		
-			 request.done(function(data, textStatus, jqXHR) {			 
+			request.done(function(data, textStatus, jqXHR) {		
 					$('#credential').val(data.containerConfiguration.credential);
 					$('#containerName').val(data.containerConfiguration.containerName);
 					$('#driver').val(data.containerConfiguration.driver);

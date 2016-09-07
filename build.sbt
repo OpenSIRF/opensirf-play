@@ -1,5 +1,5 @@
 lazy val commonSettings = Seq(
-  organization := "org.opensirf.play",
+  organization := "org.opensirf",
   version := "1.0.0"
 )
 
@@ -18,8 +18,9 @@ libraryDependencies ++= Seq(
   javaWs,
   "com.google.inject" % "guice" % "3.0",
   "com.google.inject.extensions" % "guice-assistedinject" % "4.0",
-  "org.opensirf.jaxrs" % "opensirf-jax-rs" % "1.0.0",
-  "org.opensirf.core" % "opensirf-core" % "1.0.0"
+  "org.opensirf" % "opensirf-jax-rs" % "1.0.0" changing(), 
+  "org.opensirf" % "opensirf-java-client" % "1.0.0" changing(),
+  "org.opensirf" % "opensirf-core" % "1.0.0" changing()
 )
 
 retrieveManaged := true
