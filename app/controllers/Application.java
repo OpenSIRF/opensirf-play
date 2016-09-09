@@ -1,6 +1,5 @@
 package controllers;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -45,7 +44,16 @@ import views.html.relatedObjectsTemplate;
 import views.html.setupTemplate;
 
 public class Application extends Controller {
-
+	public Application() {		
+		try {
+			endpoint = new String(Files.readAllBytes(Paths.get(
+					SIRFConfiguration.SIRF_DEFAULT_DIRECTORY + "endpoint")));
+			config = new SirfClient(endpoint).getConfiguration();
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+	
 	public Result dynamicFormElements(String category, int index, int subIndex) {
 		switch (category) {
 		case "Extension":
@@ -116,6 +124,27 @@ public class Application extends Controller {
 				PreservationObjectInformation.class), poi));
 	}
 	
+//	public Result savePreservationObjectInformation() {
+//		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(
+//				PreservationObjectInformation.class).bindFromRequest();
+//
+//		PreservationObjectInformation poi = formPreservationObjectInformation.get();
+//		
+//		poi.setVersionIdentifierUUID(poi.getObjectIdentifiers().get(0).getObjectVersionIdentifier().
+//				getObjectIdentifierValue());
+//		
+//		System.out.println("updating poi = " + poi.getVersionIdentifierUUID());
+//		
+//		SIRFConfiguration conf = getConfig();
+//		StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
+//		SIRFCatalog c = strat.getCatalog();
+//		c.getSirfObjects().remove(poi.getVersionIdentifierUUID());
+//		c.getSirfObjects().add(poi);
+//		strat.pushCatalog(c);
+//		
+//		return catalog();
+//	}
+	
 	public Result savePreservationObjectInformation() {
 		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(
 				PreservationObjectInformation.class).bindFromRequest();
@@ -125,14 +154,11 @@ public class Application extends Controller {
 		poi.setVersionIdentifierUUID(poi.getObjectIdentifiers().get(0).getObjectVersionIdentifier().
 				getObjectIdentifierValue());
 		
-		System.out.println("updating poi = " + poi.getVersionIdentifierUUID());
-		
-		SIRFConfiguration conf = getConfig();
-		StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
-		SIRFCatalog c = strat.getCatalog();
-		c.getSirfObjects().remove(poi.getVersionIdentifierUUID());
-		c.getSirfObjects().add(poi);
-		strat.pushCatalog(c);
+		SirfClient cli = new SirfClient(endpoint);
+		SIRFCatalog catalog = cli.getCatalog(config.getContainerConfiguration().getContainerName());
+		catalog.getSirfObjects().remove(poi.getVersionIdentifierUUID());
+		catalog.getSirfObjects().add(poi);
+		// TODO: push to catalog
 		
 		return catalog();
 	}
@@ -154,37 +180,28 @@ public class Application extends Controller {
 	}
 
 	public Result editPreservationObject(String uuid) {
-		System.out.println("UUID=" + uuid);
-		SIRFConfiguration conf = getConfig();
-		StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
-		PreservationObjectInformation poi = strat.getCatalog().getSirfObjects().get(uuid);
+		SirfClient c = new SirfClient(endpoint);
+		PreservationObjectInformation poi = c.getPreservationObjectInformation(config.
+				getContainerConfiguration().getContainerName(), uuid);
 		
 		return ok(preservationObjectInformationTemplate.render(Form.form(
 				PreservationObjectInformation.class), poi));
 	}
 
 	public Result downloadPreservationObject(String uuid) {
-		try {
-			SIRFConfiguration conf = getConfig();
-			StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			strat.getPreservationObjectStreamingOutput(uuid).write(baos);
-			
-			response().setHeader("Content-disposition","attachment; filename=" + uuid);
-			
-			return ok(baos.toByteArray());
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
+		SirfClient c = new SirfClient(endpoint, "application/octet-stream");
+		byte[] po = c.getPreservationObject(config.getContainerConfiguration().getContainerName(),
+				uuid);
+		
+		return ok(po);
 	}
 
+	// TODO after put/post to /catalog is implemented
 	public Result saveCatalog() {
 		Form<SIRFCatalog> formCatalog = Form.form(SIRFCatalog.class).bindFromRequest();
 		SIRFCatalog c = formCatalog.get();
 		
-		SIRFConfiguration conf = getConfig();
-		StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
+		StorageContainerStrategy strat = StrategyFactory.createStrategy(config);
 		strat.pushCatalog(c);
 		
 		return catalog();
@@ -197,30 +214,17 @@ public class Application extends Controller {
 	
 			SirfClient c = new SirfClient(endpoint);
 			
-			return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c.getCatalog("philContainer")));
+			return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c.getCatalog(
+					config.getContainerConfiguration().getContainerName())));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-//	public Result catalog() {
-//		SIRFConfiguration conf = getConfig();
-//		StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
-//		SIRFCatalog c = strat.getCatalog();
-//		return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c));
-//	}
-
 	private SIRFConfiguration getConfig() {
-		try {
-			String endpoint = new String(Files.readAllBytes(Paths.get(
-				SIRFConfiguration.SIRF_DEFAULT_DIRECTORY + "endpoint")));
-			SirfClient c = new SirfClient(endpoint);
-			return c.getConfiguration();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
+		config = new SirfClient(endpoint).getConfiguration();
+		return config;
 	}
 
 	public Result setup() {
@@ -242,5 +246,9 @@ public class Application extends Controller {
 	public Result about() {
 		return ok(aboutTemplate.render());
 	}
+	
+	private String endpoint;
+	
+	private SIRFConfiguration config;
 
 }
