@@ -6,9 +6,13 @@
 
 <script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
 
-<script type="text/javascript">	
-	var containerAuditLogCounter = @catalog.getContainerInformation().getContainerAuditLog().size();
-
+<script type="text/javascript">
+	@if(catalog.getContainerInformation().getContainerAuditLog() != null) {
+		var containerAuditLogCounter = @(catalog.getContainerInformation().getContainerAuditLog().size());
+	} else {
+		var containerAuditLogCounter = 0; 
+	}
+	
 	function toggle(divName) {
 		divElement = '#' + divName;
 		divToggleButton = '#' + divName + 'ToggleBtn';		

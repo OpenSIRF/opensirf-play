@@ -18,8 +18,6 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.media.multipart.file.FileDataBodyPart;
 import org.opensirf.catalog.SIRFCatalog;
 import org.opensirf.client.SirfClient;
-import org.opensirf.jaxrs.api.StorageContainerStrategy;
-import org.opensirf.jaxrs.api.StrategyFactory;
 import org.opensirf.jaxrs.config.SIRFConfiguration;
 import org.opensirf.obj.PreservationObjectInformation;
 
@@ -48,7 +46,9 @@ public class Application extends Controller {
 		try {
 			endpoint = new String(Files.readAllBytes(Paths.get(
 					SIRFConfiguration.SIRF_DEFAULT_DIRECTORY + "endpoint")));
+			
 			config = new SirfClient(endpoint).getConfiguration();
+			
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
 		}
@@ -111,9 +111,6 @@ public class Application extends Controller {
 							Entity.entity(multipartEntity, multipartEntity.getMediaType()));
 					
 					String output = response.readEntity(String.class);
-					
-					System.out.println("OpenSIRF JAX-RS Response:");
-					System.out.println(output);
 				} catch(IOException ioe) {
 					ioe.printStackTrace();
 				}
@@ -196,26 +193,49 @@ public class Application extends Controller {
 		return ok(po);
 	}
 
-	// TODO after put/post to /catalog is implemented
 	public Result saveCatalog() {
 		Form<SIRFCatalog> formCatalog = Form.form(SIRFCatalog.class).bindFromRequest();
 		SIRFCatalog c = formCatalog.get();
 		
-		StorageContainerStrategy strat = StrategyFactory.createStrategy(config);
-		strat.pushCatalog(c);
+		SirfClient cli = new SirfClient(endpoint);
+		SIRFConfiguration config = cli.getConfiguration();
+		String containerName = config.getContainerConfiguration().getContainerName();
+
+		System.out.println("CONTAINER NAME2 = " + containerName);
+		System.out.println("CATALOG NULL2 = " + (c==null));
 		
+		cli.pushCatalog(containerName, c);
 		return catalog();
-	}
+	}	
+	
+//	public Result saveCatalog() {
+//		Form<SIRFCatalog> formCatalog = Form.form(SIRFCatalog.class).bindFromRequest();
+//		SIRFCatalog c = formCatalog.get();
+//		
+//		StorageContainerStrategy strat = StrategyFactory.createStrategy(config);
+//		strat.pushCatalog(c);
+//		
+//		return catalog();
+//	}
 
 	public Result catalog() {
 		try {
 			String endpoint = new String(Files.readAllBytes(Paths.get(
 				SIRFConfiguration.SIRF_DEFAULT_DIRECTORY + "endpoint")));
 	
-			SirfClient c = new SirfClient(endpoint);
+			SirfClient cli = new SirfClient(endpoint);
+			SIRFConfiguration config = cli.getConfiguration();
+			String containerName = config.getContainerConfiguration().getContainerName();
 			
-			return ok(catalogTemplate.render(Form.form(SIRFCatalog.class), c.getCatalog(
-					config.getContainerConfiguration().getContainerName())));
+			System.out.println("CONTAINER NAME = " + containerName);
+			
+			SIRFCatalog catalog = cli.getCatalog(containerName);
+
+			System.out.println("CATALOG NULL = " + (catalog==null));
+			
+			return ok(catalogTemplate.render(Form.form(SIRFCatalog.class),
+					cli.getCatalog(containerName)));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
