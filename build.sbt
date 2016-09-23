@@ -16,7 +16,6 @@ libraryDependencies ++= Seq(
   javaJdbc,
   cache,
   javaWs,
-//  "com.google.inject" % "guice" % "3.0",
   "com.google.inject.extensions" % "guice-assistedinject" % "4.0",
   "org.opensirf" % "opensirf-jax-rs" % "1.0.0" changing(), 
   "org.opensirf" % "opensirf-java-client" % "1.0.0" changing(),
@@ -30,9 +29,8 @@ routesGenerator := InjectedRoutesGenerator
 EclipseKeys.preTasks := Seq(compile in Compile)
 
 crossPaths := false
-//publishTo := Some(Resolver.url("Artifactory Realm", new URL("http://200.144.189.109:58082/artifactory"))(Resolver.ivyStylePatterns))
-//credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
-//publishMavenStyle := false
+publishTo := Some(Resolver.url("Artifactory Realm", new URL("http://200.144.189.109:58082/artifactory"))(Resolver.ivyStylePatterns))
+credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
 publishArtifact in (Compile, packageDoc) := false
 publishArtifact in (Compile, packageSrc) := false

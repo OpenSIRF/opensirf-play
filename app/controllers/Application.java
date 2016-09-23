@@ -82,6 +82,7 @@ public class Application extends Controller {
 		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(
 				PreservationObjectInformation.class).bindFromRequest();
 
+		// TODO: convert to SirfClient
 		PreservationObjectInformation poi = formPreservationObjectInformation.get();
 		
 		RequestBody body = request().body();
@@ -121,27 +122,6 @@ public class Application extends Controller {
 				PreservationObjectInformation.class), poi));
 	}
 	
-//	public Result savePreservationObjectInformation() {
-//		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(
-//				PreservationObjectInformation.class).bindFromRequest();
-//
-//		PreservationObjectInformation poi = formPreservationObjectInformation.get();
-//		
-//		poi.setVersionIdentifierUUID(poi.getObjectIdentifiers().get(0).getObjectVersionIdentifier().
-//				getObjectIdentifierValue());
-//		
-//		System.out.println("updating poi = " + poi.getVersionIdentifierUUID());
-//		
-//		SIRFConfiguration conf = getConfig();
-//		StorageContainerStrategy strat = StrategyFactory.createStrategy(conf);
-//		SIRFCatalog c = strat.getCatalog();
-//		c.getSirfObjects().remove(poi.getVersionIdentifierUUID());
-//		c.getSirfObjects().add(poi);
-//		strat.pushCatalog(c);
-//		
-//		return catalog();
-//	}
-	
 	public Result savePreservationObjectInformation() {
 		Form<PreservationObjectInformation> formPreservationObjectInformation = Form.form(
 				PreservationObjectInformation.class).bindFromRequest();
@@ -155,8 +135,8 @@ public class Application extends Controller {
 		SIRFCatalog catalog = cli.getCatalog(config.getContainerConfiguration().getContainerName());
 		catalog.getSirfObjects().remove(poi.getVersionIdentifierUUID());
 		catalog.getSirfObjects().add(poi);
-		// TODO: push to catalog
-		
+		cli.pushCatalog(config.getContainerConfiguration().getContainerName(), catalog);
+
 		return catalog();
 	}
 	
@@ -208,16 +188,6 @@ public class Application extends Controller {
 		return catalog();
 	}	
 	
-//	public Result saveCatalog() {
-//		Form<SIRFCatalog> formCatalog = Form.form(SIRFCatalog.class).bindFromRequest();
-//		SIRFCatalog c = formCatalog.get();
-//		
-//		StorageContainerStrategy strat = StrategyFactory.createStrategy(config);
-//		strat.pushCatalog(c);
-//		
-//		return catalog();
-//	}
-
 	public Result catalog() {
 		try {
 			String endpoint = new String(Files.readAllBytes(Paths.get(
